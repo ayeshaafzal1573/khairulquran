@@ -46,52 +46,19 @@
 
       <!-- Auth Buttons -->
       <div class="d-flex gap-2">
-        <a href="#" class="btn btn-sm">Login</a>
+        <a href="login.php" class="btn btn-sm">Login</a>
         <a href="#" class="btn btn-register btn-sm">Register</a>
       </div>
     </div>
   </div>
 </nav>
   </body>
-  <script>
-    const modal = document.getElementById("courseModal");
-    const courseCards = document.querySelectorAll(".course-card");
-    const closeButton = document.querySelector(".close-button");
-    const courseImage = document.getElementById("courseImage");
-    const courseTitle = document.getElementById("courseTitle");
-    const courseDescription = document.getElementById("courseDescription");
-
-    courseCards.forEach((card) => {
-      card.addEventListener("click", () => {
-        courseImage.src = card.getAttribute("data-image");
-        courseTitle.textContent = card.getAttribute("data-title");
-        courseDescription.textContent = card.getAttribute("data-description");
-        modal.style.display = "flex";
-      });
-    });
-
-    closeButton.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  </script>
+  
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
       AOS.init();
   </script>
-  <script src="assets/nav.js"></script>
-  <script src="assets/footer.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="assets/script.js"></script>
-  <script src="assets/home.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script src="assets/bootstrap-5.2.3-dist/js/bootstrap.js"></script>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

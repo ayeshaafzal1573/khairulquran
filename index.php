@@ -1,6 +1,18 @@
-<?php
-
+<?php 
+require_once './includes/config.php'; 
+require_once './includes/auth.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
+    if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'student') {
+        $_SESSION['error'] = 'Please login as a student to enroll.';
+        header('Location: login.php');
+        exit;
+    } else {
+        header("Location: courses.php");
+        exit;
+    }
+}
 ?>
+<?php include './includes/header.php'; ?>
     <div class="container-fluid slide-con">
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -141,56 +153,139 @@
                   With <strong>Khairul Quran Academy</strong> live classes, your child will build a strong foundation
                   in Quran, Tajweed, and Islamic values — from the comfort of home.
                 </p>
-                <button>ENROLL NOW</button>
+           <form method="POST">
+  <input type="hidden" name="enroll_now" value="1">
+  <button type="submit">ENROLL NOW</button>
+</form>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Courses Section -->
-    <section class="courses" id="courses" data-aos="flip-left">
-      <h3>Our Courses</h3>
-      <div class="course-grid">
-        <div
-          class="course-card"
-          data-title="Quran with Tajweed"
-          data-image="assets/logo.jpg"
-          data-description="Learn to recite Quran with proper pronunciation and Tajweed rules."
-        >
-          Quran with Tajweed
-        </div>
-        <div
-          class="course-card"
-          data-title="Quran with Tafseer"
-          data-image="assets/logo.jpg"
-          data-description="Learn to recite Quran with proper pronunciation and Tajweed rules."
-        >
-          Quran with Tafseer
-        </div>
-        <div class="course-card">All Dua's</div>
-        <div class="course-card">All Ahadees</div>
-        <div class="course-card">Noorani Qaida</div>
-        <div class="course-card">Quran Memorization</div>
-        <div class="course-card">Bahishti Gohar (Men's Issues)</div>
-        <div class="course-card">Bahishti Zewar (Women's Issues)</div>
-      </div>
-    </section>
-    <!-- Modal Structure -->
-    <div id="courseModal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <div class="modal-body">
-          <img id="courseImage" src="" alt="Course Image" />
-          <div class="course-info">
-            <h4 id="courseTitle">Course Title</h4>
-            <p id="courseDescription" style="color: black">
-              Course description goes here...
-            </p>
-            <button class="enroll-btn">Enroll Now</button>
-          </div>
+   <section class="courses" id="courses" data-aos="flip-left">
+  <h3>Our Courses</h3>
+  <div class="course-grid">
+  <?php
+  $sql = "SELECT * FROM courses c LEFT JOIN teachers t ON c.teacher_id = t.teacher_id";
+
+$stmt = $db->query($sql);
+$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (count($courses) > 0) {
+  foreach ($courses as $course) {
+    $title = htmlspecialchars($course['title']);
+    $image = htmlspecialchars($course['image_url']);
+    $desc  = htmlspecialchars($course['description']);
+    
+    $tech  = htmlspecialchars($course['teacher_id']);
+    ?>
+
+    <div
+      class="course-card"
+      data-title="<?= $title ?>"
+      data-image="<?= $image ?>"
+      data-description="<?= $desc ?>"
+      data-teachername="<?= $tech?>"
+    >
+      <?= $title ?>
+    </div>
+
+  <?php
+  }
+} else {
+  echo "<p>No courses available.</p>";
+}
+?>
+
+  </div>
+</section>
+
+<!-- Modal Structure -->
+<div id="courseModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <div class="modal-body">
+      <img id="courseImage" src="" alt="Course Image" />
+      <div class="course-info">
+        <h4 id="courseTitle"></h4>
+        <p id="courseDescription" style="color: black"></p>
+        <div class="flex-row">
+          <h5 id="teacherName">Teacher: <span></span></h5>
+          <?php if (isLoggedIn()): ?>
+            <form action="enroll.php" method="POST" class="enrollment-form">
+              <input type="hidden" name="course_id" id="modalCourseId">
+              <?php if (isStudent()): ?>
+                <!-- Student Information -->
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" name="full_name" required 
+                         value="<?= htmlspecialchars($_SESSION['user_fullname'] ?? '') ?>">
+                </div>
+                <div class="form-group">
+                  <label>Contact Number</label>
+                  <input type="tel" name="contact" required>
+                </div>
+                <!-- Payment Information -->
+                <div class="form-group">
+                  <label>Payment Method</label>
+                  <select name="payment_method" required>
+                    <option value="jazzcash">JazzCash</option>
+                    <option value="easypaisa">EasyPaisa</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Transaction ID</label>
+                  <input type="text" name="transaction_id" required>
+                </div>
+                <button type="submit" class="enroll-btn">Complete Enrollment</button>
+              <?php else: ?>
+                   <a href="login.php" class="enroll-btn" style="text-decoration: none;">Login to Enroll</a>
+        
+              <?php endif; ?>
+            </form>
+          <?php else: ?>
+         
+                <p class="text-danger">Only students can enroll in courses</p>
+          <?php endif; ?>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+<script>
+    const modal = document.getElementById("courseModal");
+    const courseCards = document.querySelectorAll(".course-card");
+    const closeButton = document.querySelector(".close-button");
+    const courseImage = document.getElementById("courseImage");
+    const courseTitle = document.getElementById("courseTitle");
+    const courseDescription = document.getElementById("courseDescription");
+const teacherName=document.getElementById("teacherName");
+    courseCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        courseImage.src = card.getAttribute("data-image");
+        courseTitle.textContent = card.getAttribute("data-title");
+        courseDescription.textContent = card.getAttribute("data-description");
+        teacherName.textContent=card.getAttribute("data-teachername");
+        modal.style.display = "flex";
+      });
+    });
+
+    closeButton.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+</script>
 
     <!-- End Banner -->
     <div class="abbg">
@@ -212,3 +307,4 @@
         </div>
       </div>
     </div>
+      <?php include './includes/footer.php'; ?>

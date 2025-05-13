@@ -90,16 +90,17 @@
   color: white;
 }
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4); /* Light transparent background */
   justify-content: center;
   align-items: center;
+}
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* or center/left as needed */
+  gap: 10px;
 }
 
 .modal-content {
