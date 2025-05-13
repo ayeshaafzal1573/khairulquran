@@ -1,44 +1,100 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muslim Quran - Online Quran Courses</title>
-    <link rel="stylesheet" href="assets/allcourses.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  
-  <!-- Header Section -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="#">
-                    <i class="fas fa-book-quran"></i>
-                    <span>Muslim Quran</span>
-                </a>
-            </div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#teachers">Teachers</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="auth-buttons">
-                <a href="#" class="btn btn-login">Login</a>
-                <a href="#" class="btn btn-primary">Register</a>
-            </div>
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khair ul Quran Academy</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="icon" href="assets/images/logo.png" />
+    <link
+      rel="stylesheet"
+      href="assets/bootstrap-5.2.3-dist/css/bootstrap.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
 
-    <script src="assets/allcourses.js"></script>
-</body>
+
+  <body>
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-2 sticky-top">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/logo.png" alt="Logo" width="60" height="50">
+    </a>
+
+    <!-- Toggler Button for Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Content -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <!-- Navigation Links -->
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#teachers">Teachers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- Auth Buttons -->
+      <div class="d-flex gap-2">
+        <a href="#" class="btn btn-sm">Login</a>
+        <a href="#" class="btn btn-register btn-sm">Register</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  </body>
+  <script>
+    const modal = document.getElementById("courseModal");
+    const courseCards = document.querySelectorAll(".course-card");
+    const closeButton = document.querySelector(".close-button");
+    const courseImage = document.getElementById("courseImage");
+    const courseTitle = document.getElementById("courseTitle");
+    const courseDescription = document.getElementById("courseDescription");
+
+    courseCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        courseImage.src = card.getAttribute("data-image");
+        courseTitle.textContent = card.getAttribute("data-title");
+        courseDescription.textContent = card.getAttribute("data-description");
+        modal.style.display = "flex";
+      });
+    });
+
+    closeButton.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+      AOS.init();
+  </script>
+  <script src="assets/nav.js"></script>
+  <script src="assets/footer.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/script.js"></script>
+  <script src="assets/home.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="assets/bootstrap-5.2.3-dist/js/bootstrap.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
 </html>

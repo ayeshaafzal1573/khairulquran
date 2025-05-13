@@ -1,0 +1,214 @@
+<?php
+
+?>
+    <div class="container-fluid slide-con">
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <div class="left-slider">
+            <div class="f1">
+              <h1>Khairul Quran Academy</h1>
+              <p>
+                experience Personalized Quran Learning with Certified Teachers, Flexible Schedules, and a Spiritual Environment Tailored for Every Student."
+              </p>
+            </div>
+            <div class="s1">
+              <h1>Khairul Quran Academy</h1>
+              <p>
+                "Trusted by Families Worldwide for Quality Quran Education with Personalized Attention and Islamic Values."
+              </p>
+            </div>
+            <div class="t1">
+              <h1>Khairul Quran Academy</h1>
+              <p>
+                We combine authentic Quranic education with modern online tools, offering certified tutors, customized learning plans, and 24/7 flexible class options — all in a spiritually uplifting environment.
+              </p>
+            </div>
+            <div class="for1">
+              <h1>Khairul Quran Academy</h1>
+              <p>
+                Learn from trusted Quran teachers, enjoy one-on-one online sessions, and grow spiritually — with free trials, easy enrollment, and worldwide access.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- BANNER IMAGES -->
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" >
+          <div class="img-slide">
+            <div
+              class="bg"
+              style="background-image: url('./assets/images/banner\ \(2\).jpg')"
+            ></div>
+            <div
+              class="bg"
+              style="background-image: url(./assets/images/banner3.jpg)"
+            ></div>
+            <div
+              class="bg"
+              style="background-image: url(/assets/images/banner4.jpg)"
+            ></div>
+            <div
+              class="bg"
+              style="background-image: url(/assets/images/banner5.jpg)"
+            ></div>
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="down">
+            <i class="fas fa-arrow-down"></i>
+          </button>
+          <button class="up">
+            <i class="fas fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- endslider -->
+    <section class="features" data-aos="fade-out">
+      <h2>Why <span>Choose</span> Us?</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <p>One-on-One Live Classes</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-book-open"></i>
+          <p>Structured Curriculum</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-clock"></i>
+          <p>Flexible Timings</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-mosque"></i>
+          <p>Islamic Environment</p>
+        </div>
+      </div>
+    </section>
+    <!-- ABOUT SECTION -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8" data-aos="fade-left">
+          <div class="intro-section">
+            <div class="intro-text">
+              <h1>
+                <span>With Every Lesson</span> Your Child Grows in Faith and Knowledge
+              </h1>
+              <p>
+                We understand that every child learns differently. That’s why our qualified tutors
+                use personalized teaching methods, engaging resources, and a compassionate approach
+                to help your child grow in Quranic knowledge and confidence.
+                <br /><br />
+                Through <strong>Khairul Quran Academy</strong> live sessions, your child will explore the
+                teachings of the Quran and embrace Islamic values in a meaningful way.
+              </p>
+              <button>ENROLL NOW</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4" data-aos="fade-right">
+          <div class="intro-img">
+            <img
+              src="assets/images/child.jpg"
+           
+              alt="Child Learning Quran"
+           class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ABOUT SECTION END -->
+    <!-- ABOUT SECTION -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-5 mt-5" data-aos="fade-left">
+          <div class="intro-img">
+            <img src="assets/images/child2.jpg" alt="Child Learning Quran" class="img-fluid" />
+          </div>
+        </div>
+        <div class="col-7" data-aos="fade-right">
+          <div class="intro-section">
+            <div class="intro-text">
+              <h1>
+                <h1>
+                  <span>Every Class</span> Brings Your Child Closer to the Quran
+                </h1>
+                <p>
+                  Every child is unique and deserves a learning experience that fits their pace and style.
+                  Our live tutors use interactive tools and modern techniques to make Quran learning
+                  effective, engaging, and spiritually uplifting.
+                  <br /><br />
+                  With <strong>Khairul Quran Academy</strong> live classes, your child will build a strong foundation
+                  in Quran, Tajweed, and Islamic values — from the comfort of home.
+                </p>
+                <button>ENROLL NOW</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Courses Section -->
+    <section class="courses" id="courses" data-aos="flip-left">
+      <h3>Our Courses</h3>
+      <div class="course-grid">
+        <div
+          class="course-card"
+          data-title="Quran with Tajweed"
+          data-image="assets/logo.jpg"
+          data-description="Learn to recite Quran with proper pronunciation and Tajweed rules."
+        >
+          Quran with Tajweed
+        </div>
+        <div
+          class="course-card"
+          data-title="Quran with Tafseer"
+          data-image="assets/logo.jpg"
+          data-description="Learn to recite Quran with proper pronunciation and Tajweed rules."
+        >
+          Quran with Tafseer
+        </div>
+        <div class="course-card">All Dua's</div>
+        <div class="course-card">All Ahadees</div>
+        <div class="course-card">Noorani Qaida</div>
+        <div class="course-card">Quran Memorization</div>
+        <div class="course-card">Bahishti Gohar (Men's Issues)</div>
+        <div class="course-card">Bahishti Zewar (Women's Issues)</div>
+      </div>
+    </section>
+    <!-- Modal Structure -->
+    <div id="courseModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="modal-body">
+          <img id="courseImage" src="" alt="Course Image" />
+          <div class="course-info">
+            <h4 id="courseTitle">Course Title</h4>
+            <p id="courseDescription" style="color: black">
+              Course description goes here...
+            </p>
+            <button class="enroll-btn">Enroll Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Banner -->
+    <div class="abbg">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 abo">
+            <h1>A Beautiful Plant Is Like Having A Friend Arount The House</h1>
+            <h5>
+              A friendship is like a garden; it grows over time, needs care and
+              attention, and blooms when nourished with love and understanding.
+              Just as friendships add color to our lives, plants and flowers
+              bring vibrancy to our surroundings, with many symbolizing the
+              beautiful bond of friendship. Whether indoor plants, outdoor
+              flowers, or even herbs, these verdant companions embody a myriad
+              of emotions and messages, making them thoughtful gifts for
+              friends.
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
