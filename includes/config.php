@@ -6,8 +6,8 @@ define('DB_PASS', '');
 define('DB_NAME', 'khairulkhan_academy');
 
 // Site Configuration
-define('SITE_NAME', 'Khairulkhan Academy');
-define('SITE_URL', 'http://localhost/khairulkhan-academy');
+define('SITE_NAME', 'Khair-ul-Quran Academy');
+define('SITE_URL', 'http://localhost/Khair-ul-Quran-academy');
 
 // Create database connection
 try {

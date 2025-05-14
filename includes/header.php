@@ -7,10 +7,8 @@
     <title>Khair ul Quran Academy</title>
     <link rel="stylesheet" href="assets/style.css" />
     <link rel="icon" href="assets/images/logo.png" />
-    <link
-      rel="stylesheet"
-      href="assets/bootstrap-5.2.3-dist/css/bootstrap.css"
-    />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -38,9 +36,8 @@
       <!-- Navigation Links -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#teachers">Teachers</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.php">Our Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
 

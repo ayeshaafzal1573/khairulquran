@@ -49,7 +49,7 @@ if (isset($_GET['update_status']) && in_array($_GET['update_status'], ['paid', '
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Details - Khairulkhan Academy</title>
+    <title>Payment Details - Khair-ul-Quran Academy</title>
 </head>
 <body>
  <div class="container-fluid">

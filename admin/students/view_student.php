@@ -44,7 +44,7 @@ $enrollments = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Student - Khairulkhan Academy</title>
+    <title>View Student - Khair-ul-Quran Academy</title>
 </head>
 <body>
     <div class="container-fluid">

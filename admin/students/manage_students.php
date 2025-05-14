@@ -27,7 +27,7 @@ if (isset($_GET['toggle_status']) && is_numeric($_GET['toggle_status'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Students - Khairulkhan Academy</title>
+    <title>Manage Students - Khair-ul-Quran Academy</title>
 </head>
 <body>
      <div class="container-fluid">

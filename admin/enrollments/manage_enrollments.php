@@ -71,7 +71,7 @@ if (isset($_GET['update_status']) && isset($_GET['new_status'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Enrollments - Khairulkhan Academy</title>
+    <title>Manage Enrollments - Khair-ul-Quran Academy</title>
 </head>
 <body>
    <div class="container-fluid">

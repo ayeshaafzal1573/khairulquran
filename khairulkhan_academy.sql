@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `khairulkhan_academy`
+-- Database: `Khair-ul-Quran_academy`
 --
 
 -- --------------------------------------------------------
@@ -190,7 +190,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`, `status`, `created_at`, `last_login`, `reset_token`, `token_expiry`) VALUES
-(1, 'admin', 'admin@khairulkhanacademy.com', 'admin123', 'admin', 1, '2025-05-10 13:34:14', NULL, NULL, NULL),
+(1, 'admin', 'admin@Khair-ul-Quranacademy.com', 'admin123', 'admin', 1, '2025-05-10 13:34:14', NULL, NULL, NULL),
 (2, 'Teacher Khan', 'teacher@test.com', 'teacher123', 'teacher', 1, '2025-05-10 14:11:36', NULL, NULL, NULL),
 (3, 'Student', 'ayeshaafzal1573@gmail.com', '$2y$10$Wje3Ncaa9c/nen91.4J0iuLw1abJ6rdzoyOemmIAlfWA7BwgkSaEO', 'student', 1, '2025-05-10 16:28:36', NULL, NULL, NULL);
 
