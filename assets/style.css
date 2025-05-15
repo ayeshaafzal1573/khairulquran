@@ -709,18 +709,7 @@ p {
 .cta h2 {
   margin-bottom: 1rem;
 }
-/* Updated CSS for responsive counter section */
-.cout-container {
-  margin-top: 40px !important;
-  background-image: url(images/banner-images/pexels-min-an-1599969.jpg);
-  background-position: center;
-  background-size: cover;
-  background-blend-mode: overlay;
-  z-index: -1;
-  background-attachment: fixed !important;
-  background-color: rgba(0, 0, 0, 0.519);
-  padding: 50px 20px;
-}
+
 
 .wr {
   display: flex;
@@ -1022,7 +1011,7 @@ hr {
 .abbg h1 {
   justify-content: center;
   text-align: center;
-  color: #f59e0b  ;
+  color: #5C4033;
   font-weight: 500;
   text-decoration: none;
   margin-top: -0px;

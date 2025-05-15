@@ -2,7 +2,7 @@
 require_once './includes/config.php'; 
 require_once './includes/auth.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
-    if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'student') {
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
         $_SESSION['error'] = 'Please login as a student to enroll.';
         header('Location: login.php');
         exit;
@@ -162,46 +162,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
         </div>
       </div>
     </div>
-    <!-- Courses Section -->
-   <section class="courses" id="courses" data-aos="flip-left">
+   <!-- Courses Section -->
+<section class="courses" id="courses" data-aos="flip-left">
   <h3>Our Courses</h3>
   <div class="course-grid">
   <?php
   $sql = "SELECT * FROM courses c LEFT JOIN teachers t ON c.teacher_id = t.teacher_id";
+  $stmt = $db->query($sql);
+  $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $db->query($sql);
-$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if (count($courses) > 0) {
-  foreach ($courses as $course) {
-    $title = htmlspecialchars($course['title']);
-    $image = htmlspecialchars($course['image_url']);
-    $desc  = htmlspecialchars($course['description']);
-    
-    $tech  = htmlspecialchars($course['teacher_id']);
-    ?>
-
-    <div
-      class="course-card"
-      data-title="<?= $title ?>"
-      data-image="<?= $image ?>"
-      data-description="<?= $desc ?>"
-      data-teachername="<?= $tech?>"
-    >
+  if (count($courses) > 0) {
+    foreach ($courses as $course) {
+      $courseId = htmlspecialchars($course['course_id']);
+      $title = htmlspecialchars($course['title']);
+      $image = htmlspecialchars($course['image_url']);
+      $desc  = htmlspecialchars($course['description']);
+      $teacherName = htmlspecialchars($course['full_name'] ?? 'N/A');
+  ?>
+    <div class="course-card" 
+         data-course-id="<?= $courseId ?>"
+         data-title="<?= $title ?>"
+         data-image="<?= $image ?>"
+         data-description="<?= $desc ?>"
+         data-teachername="<?= $teacherName ?>">
       <?= $title ?>
     </div>
-
-  <?php
-  }
-} else {
-  echo "<p>No courses available.</p>";
-}
-?>
-
+  <?php }
+  } else {
+    echo "<p>No courses available.</p>";
+  } ?>
   </div>
 </section>
 
-<!-- Modal Structure -->
+<!-- Course Details Modal -->
 <div id="courseModal" class="modal">
   <div class="modal-content">
     <span class="close-button">&times;</span>
@@ -209,102 +202,77 @@ if (count($courses) > 0) {
       <img id="courseImage" src="" alt="Course Image" />
       <div class="course-info">
         <h4 id="courseTitle"></h4>
-        <p id="courseDescription" style="color: black"></p>
+        <p id="courseDescription"></p>
         <div class="flex-row">
-          <h5 id="teacherName">Teacher: <span></span></h5>
-          <?php if (isLoggedIn()): ?>
-            <form action="enroll.php" method="POST" class="enrollment-form">
-              <input type="hidden" name="course_id" id="modalCourseId">
-              <?php if (isStudent()): ?>
-                <!-- Student Information -->
-                <div class="form-group">
-                  <label>Full Name</label>
-                  <input type="text" name="full_name" required 
-                         value="<?= htmlspecialchars($_SESSION['user_fullname'] ?? '') ?>">
-                </div>
-                <div class="form-group">
-                  <label>Contact Number</label>
-                  <input type="tel" name="contact" required>
-                </div>
-                <!-- Payment Information -->
-                <div class="form-group">
-                  <label>Payment Method</label>
-                  <select name="payment_method" required>
-                    <option value="jazzcash">JazzCash</option>
-                    <option value="easypaisa">EasyPaisa</option>
-                    <option value="bank_transfer">Bank Transfer</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Transaction ID</label>
-                  <input type="text" name="transaction_id" required>
-                </div>
-                <button type="submit" class="enroll-btn">Complete Enrollment</button>
-              <?php else: ?>
-                   <a href="login.php" class="enroll-btn" style="text-decoration: none;">Login to Enroll</a>
-        
-              <?php endif; ?>
-            </form>
-          <?php else: ?>
-         
-                <p class="text-danger">Only students can enroll in courses</p>
-          <?php endif; ?>
+          <h5>Teacher: <span id="teacherName"></span></h5>
+          <div class="enroll-section">
+        <?php if (isLoggedIn() && isStudent()): ?>
+<a id="enrollBtn" href="#" class="btn btn-primary">Enroll Now</a>
+
+<?php elseif (!isLoggedIn()): ?>
+  <a id="loginEnrollBtn" href="#" class="enroll-btn">Login to Enroll</a>
+<?php else: ?>
+  <p class="text-danger">Only students can enroll</p>
+<?php endif; ?>
+
+
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-
 <script>
-    const modal = document.getElementById("courseModal");
-    const courseCards = document.querySelectorAll(".course-card");
-    const closeButton = document.querySelector(".close-button");
-    const courseImage = document.getElementById("courseImage");
-    const courseTitle = document.getElementById("courseTitle");
-    const courseDescription = document.getElementById("courseDescription");
-const teacherName=document.getElementById("teacherName");
-    courseCards.forEach((card) => {
-      card.addEventListener("click", () => {
-        courseImage.src = card.getAttribute("data-image");
-        courseTitle.textContent = card.getAttribute("data-title");
-        courseDescription.textContent = card.getAttribute("data-description");
-        teacherName.textContent=card.getAttribute("data-teachername");
-        modal.style.display = "flex";
-      });
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById("courseModal");
+  const courseCards = document.querySelectorAll(".course-card");
+  const closeButton = document.querySelector(".close-button");
 
-    closeButton.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+  courseCards.forEach(card => {
+    card.addEventListener("click", () => {
+      const courseId = card.dataset.courseId;
+      const enrollBtn = document.getElementById('enrollBtn');
+      const loginBtn = document.getElementById('loginEnrollBtn');
 
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
+      // Update modal content
+      document.getElementById('courseImage').src = card.dataset.image;
+      document.getElementById('courseTitle').textContent = card.dataset.title;
+      document.getElementById('courseDescription').textContent = card.dataset.description;
+      document.getElementById('teacherName').textContent = card.dataset.teachername;
+
+    if (enrollBtn) {
+  enrollBtn.href = `handle_enroll.php?course_id=${courseId}`;
+}
+
+      if(loginBtn) {
+        loginBtn.href = `login.php?redirect=${encodeURIComponent(`enroll.php?course_id=${courseId}`)}`;
       }
-    });
 
+      modal.style.display = "flex";
+    });
+  });
+
+  closeButton.addEventListener("click", () => modal.style.display = "none");
+  window.addEventListener("click", (e) => e.target === modal && (modal.style.display = "none"));
+});
 </script>
 
-    <!-- End Banner -->
-    <div class="abbg">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 abo">
-            <h1>A Beautiful Plant Is Like Having A Friend Arount The House</h1>
-            <h5>
-              A friendship is like a garden; it grows over time, needs care and
-              attention, and blooms when nourished with love and understanding.
-              Just as friendships add color to our lives, plants and flowers
-              bring vibrancy to our surroundings, with many symbolizing the
-              beautiful bond of friendship. Whether indoor plants, outdoor
-              flowers, or even herbs, these verdant companions embody a myriad
-              of emotions and messages, making them thoughtful gifts for
-              friends.
-            </h5>
-          </div>
-        </div>
+   <!-- End Banner -->
+<div class="abbg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 abo text-center">
+        <h1>“Verily, in the remembrance of Allah do hearts find rest.” (Quran 13:28)</h1>
+        <h5>
+          The Quran is not just a book — it's a light that guides, a friend that comforts, and a cure for the hearts. 
+          In a world filled with noise and distractions, turning to the words of Allah brings peace and clarity. 
+          Whether you're seeking answers, strength, or simply a moment of tranquility, the Quran is always there — timeless, powerful, and close to the soul. 
+          Let it be your companion on the journey of life.
+        </h5>
       </div>
     </div>
+  </div>
+</div>
+
       <?php include './includes/footer.php'; ?>

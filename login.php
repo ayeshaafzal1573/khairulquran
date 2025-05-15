@@ -119,7 +119,6 @@ color:#ff9800;
                     </div>
                 </form>
 
-               -->
                 <div class="text-center mt-2">
                     <span class="text-white">Don't have an account?</span> <a href="register.php">Register</a>
                 </div>
