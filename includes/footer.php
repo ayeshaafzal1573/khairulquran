@@ -8,7 +8,7 @@
         <div class="logo mb-3">
           <a href="#" class="text-light text-decoration-none d-flex align-items-center justify-content-center justify-content-md-start">
             <i class="fas fa-book-quran me-2"></i>
-            <span class="fw-bold">Muslim Quran</span>
+            <span class="fw-bold">Khair ul Quran</span>
           </a>
         </div>
         <p>Muslim Quran Academy provides online Quran classes for kids and adults with qualified Quran teachers from Egypt.</p>
@@ -21,15 +21,13 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4" >
         <h3>Quick Links</h3>
         <ul class="list-unstyled">
-          <li><a href="#">Home</a></li>
-          <li><a href="#courses">Courses</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#teachers">Teachers</a></li>
-          <li><a href="#">Pricing</a></li>
-          <li><a href="#">Blog</a></li>
+          <li><a href="home.php">Home</a></li>
+          <li><a href="courses.php">Courses</a></li>
+          <li><a href="about.php">About Us</a></li>
+          <li><a href="contact.php">Teachers</a></li>
         </ul>
       </div>
 

@@ -1,6 +1,8 @@
 <?php include './includes/header.php'; ?>
 <style>
-  
+  body{
+    overflow-x:hidden;
+  }
   .about-hero h1 {
     font-size: 3.5rem;
     font-weight: 700;
@@ -64,7 +66,7 @@
   }
   
   .section-header span {
-    color: #3498db;
+    color: #ff9800;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 1px;
@@ -98,7 +100,7 @@
     height: 100%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-top: 4px solid #3498db;
+    border-top: 4px solid #ff9800;
   }
   
   .mission-card:hover {
@@ -115,7 +117,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 25px;
-    color: #3498db;
+    color: #ff9800;
     font-size: 1.8rem;
   }
   
@@ -131,12 +133,7 @@
     line-height: 1.6;
   }
   
-  /* Timeline Section */
-  .timeline-section {
-    padding: 100px 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4f0f9 100%);
-    position: relative;
-  }
+
   
   .timeline {
     position: relative;
@@ -148,7 +145,7 @@
     content: '';
     position: absolute;
     width: 6px;
-    background-color: #3498db;
+    background-color: #ff9800;
     top: 0;
     bottom: 0;
     left: 50%;
@@ -170,7 +167,7 @@
     height: 25px;
     right: -12px;
     background-color: white;
-    border: 4px solid #3498db;
+    border: 4px solid #ff9800;
     top: 15px;
     border-radius: 50%;
     z-index: 1;
@@ -199,7 +196,7 @@
   .timeline-year {
     position: absolute;
     top: -20px;
-    background: #3498db;
+    background: #ff9800;
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
@@ -275,7 +272,7 @@
   
   .teacher-info span {
     display: block;
-    color: #3498db;
+    color: #ff9800;
     font-weight: 500;
     margin-bottom: 10px;
   }
@@ -286,12 +283,7 @@
     margin-bottom: 0;
   }
   
-  /* Testimonials Section */
-  .testimonials-section {
-    padding: 100px 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4f0f9 100%);
-  }
-  
+
   .testimonials-slider {
     max-width: 1000px;
     margin: 0 auto;
@@ -313,7 +305,7 @@
     position: absolute;
     top: 20px;
     right: 30px;
-    color: #3498db;
+    color: #ff9800;
     opacity: 0.2;
     font-size: 4rem;
   }
@@ -337,7 +329,7 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 15px;
-    border: 3px solid #3498db;
+    border: 3px solid #ff9800;
   }
   
   .student-info h4 {
@@ -355,7 +347,7 @@
   /* Stats Section */
   .stats-section {
     padding: 80px 0;
-    background-color: #2c3e50;
+    background-color:#473d32;
     color: white;
   }
   
@@ -366,7 +358,7 @@
   
   .stat-item i {
     font-size: 2.5rem;
-    color: #3498db;
+    color: #ff9800;
     margin-bottom: 20px;
   }
   
@@ -381,7 +373,10 @@
     opacity: 0.8;
     margin-bottom: 0;
   }
-  
+  .explore{
+    background-color:#473d32;
+    color:white;
+  }
   
 </style>
     <section class="about-hero">
@@ -390,7 +385,7 @@
           <div class="col-lg-6" data-aos="fade-right">
             <h1>Our Journey in Quranic Education</h1>
             <p>Guiding hearts towards the light of the Quran since 2010</p>
-            <a href="#mission" class="btn btn-primary">Explore Our Mission</a>
+            <a href="#mission" class="btn explore">Explore Our Mission</a>
           </div>
           <div class="col-lg-6" data-aos="fade-left">
             <div class="hero-image">
@@ -555,7 +550,7 @@
               </div>
               <p>My children have flourished under the guidance of Khairul Quran Academy. The teachers are patient, knowledgeable, and truly care about their students' progress in both Quran recitation and Islamic values.</p>
               <div class="student-info">
-                <img src="assets/images/student1.jpg" alt="Parent">
+                <img src="assets/images/s1.jfif" alt="Parent">
                 <div>
                   <h4>Sarah Johnson</h4>
                   <span>Parent, USA</span>
@@ -570,7 +565,7 @@
               </div>
               <p>As a working professional, the flexible schedule has allowed me to continue my Quran memorization. The teaching methods are excellent, and I've progressed more in 6 months here than in 2 years elsewhere.</p>
               <div class="student-info">
-                <img src="assets/images/student2.jpg" alt="Student">
+                <img src="assets/images/s2.jfif" alt="Student">
                 <div>
                   <h4>Abdullah Mohammed</h4>
                   <span>Hifz Student, UK</span>
@@ -585,7 +580,7 @@
               </div>
               <p>The Tajweed course transformed my Quran recitation. The teachers have exceptional knowledge and explain complex rules in simple ways. I'm now leading prayers in my local masjid with confidence.</p>
               <div class="student-info">
-                <img src="assets/images/student3.jpg" alt="Student">
+                <img src="assets/images/s3.jfif" alt="Student">
                 <div>
                   <h4>Amina Yusuf</h4>
                   <span>Tajweed Student, Canada</span>
