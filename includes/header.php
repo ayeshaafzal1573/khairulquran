@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,6 +19,7 @@
 
 
   <body>
+
 <nav class="navbar navbar-expand-lg bg-white shadow-sm py-2 sticky-top">
   <div class="container">
     <!-- Logo -->
@@ -41,14 +43,30 @@
         <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
       </ul>
 
-      <!-- Auth Buttons -->
-      <div class="d-flex gap-2">
-        <a href="login.php" class="btn btn-sm">Login</a>
-        <a href="#" class="btn btn-register btn-sm">Register</a>
+      <!-- Auth Buttons or Account Icon -->
+      <div class="d-flex gap-2 align-items-center">
+        <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] === 'student'): ?>
+          <!-- Show account icon with dropdown -->
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-circle-user fa-2x"></i>
+              <span class="ms-2"><?= htmlspecialchars($_SESSION['username']) ?></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+              <li><a class="dropdown-item" href="student/dashboard.php">Dashboard</a></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
+        <?php else: ?>
+          <!-- Show Login/Register buttons -->
+          <a href="login.php" class="btn btn-sm">Login</a>
+          <a href="register.php" class="btn btn-register btn-sm">Register</a>
+        <?php endif; ?>
       </div>
     </div>
   </div>
 </nav>
+
   </body>
   
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

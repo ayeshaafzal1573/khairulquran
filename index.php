@@ -162,12 +162,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
         </div>
       </div>
     </div>
-   <!-- Courses Section -->
+ <!-- Courses Section -->
 <section class="courses" id="courses" data-aos="flip-left">
   <h3>Our Courses</h3>
   <div class="course-grid">
   <?php
-  $sql = "SELECT * FROM courses c LEFT JOIN teachers t ON c.teacher_id = t.teacher_id";
+  $sql = "SELECT * FROM courses c LEFT JOIN teachers t ON c.teacher_id = t.teacher_id LIMIT 6";
   $stmt = $db->query($sql);
   $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -194,6 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
   </div>
 </section>
 
+
 <!-- Course Details Modal -->
 <div id="courseModal" class="modal">
   <div class="modal-content">
@@ -202,15 +203,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
       <img id="courseImage" src="" alt="Course Image" />
       <div class="course-info">
         <h4 id="courseTitle"></h4>
-        <p id="courseDescription"></p>
-        <div class="flex-row">
-          <h5>Teacher: <span id="teacherName"></span></h5>
+        <p id="courseDescription" style="color: black;"></p>
+            <h6>Teacher: <span id="teacherName"></span></h6>
+        <div class="flex-row mt-3">
+      
           <div class="enroll-section">
         <?php if (isLoggedIn() && isStudent()): ?>
-<a id="enrollBtn" href="#" class="btn btn-primary">Enroll Now</a>
+<a id="enrollBtn" href="#" class="btn btn-primary text-decoration-none">Enroll Now</a>
 
 <?php elseif (!isLoggedIn()): ?>
-  <a id="loginEnrollBtn" href="#" class="enroll-btn">Login to Enroll</a>
+  <a id="loginEnrollBtn" href="#" class="enroll-btn text-decoration-none">Login to Enroll</a>
 <?php else: ?>
   <p class="text-danger">Only students can enroll</p>
 <?php endif; ?>

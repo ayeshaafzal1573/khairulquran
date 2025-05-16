@@ -13,28 +13,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch();
 
-        if ($user && $password === $user['password']) {
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
+      if ($user && password_verify($password, $user['password'])) {
+    $_SESSION['user_id'] = $user['user_id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['role'] = $user['role'];
 
-            switch ($user['role']) {
-                case 'admin':
-                    header('Location: admin/dashboard.php');
-                    break;
-                case 'teacher':
-                    header('Location: teacher/dashboard.php');
-                    break;
-                case 'student':
-                    header('Location: student/dashboard.php');
-                    break;
-                default:
-                    header('Location: index.php');
-            }
-            exit;
-        } else {
-            $error = 'Invalid username or password';
+    // Check for redirect after login
+    $redirect = $_POST['redirect'] ?? '';
+
+    if ($user['role'] === 'student' && $redirect === 'enroll_now') {
+        // Redirect back to enroll page (adjust URL as needed)
+        header('Location: enroll_now.php');
+    } else {
+        // Normal role-based redirects
+        switch ($user['role']) {
+            case 'admin':
+                header('Location: admin/dashboard.php');
+                break;
+            case 'teacher':
+                header('Location: teacher/dashboard.php');
+                break;
+            case 'student':
+                header('Location: student/dashboard.php');
+                break;
+            default:
+                header('Location: index.php');
         }
+    }
+    exit;
+} else {
+    $error = 'Invalid username or password';
+}
+
     }
 }
 ?>
