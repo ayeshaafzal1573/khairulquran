@@ -377,7 +377,9 @@
     background-color:#473d32;
     color:white;
   }
-  
+  .teacher-img{
+    height:250px;
+}
 </style>
     <section class="about-hero">
       <div class="container">
@@ -482,7 +484,7 @@
           <div class="col-lg-3 col-md-6" data-aos="zoom-in">
             <div class="teacher-card">
               <div class="teacher-img">
-                <img src="assets/images/teacher1.jpg" alt="Teacher Hafiz Ahmed">
+                <img src="assets/images/man2.webp" alt="Teacher Hafiz Ahmed">
              
               </div>
               <div class="teacher-info">
@@ -495,7 +497,7 @@
           <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="teacher-card">
               <div class="teacher-img">
-                <img src="assets/images/teacher2.jpg" alt="Teacher Ustaza Fatima">
+                <img src="assets/images/hijab.webp" alt="Teacher Ustaza Fatima">
               
               </div>
               <div class="teacher-info">
@@ -508,7 +510,7 @@
           <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
             <div class="teacher-card">
               <div class="teacher-img">
-                <img src="assets/images/teacher3.jpg" alt="Teacher Sheikh Ibrahim">
+                <img src="assets/images/man2.jpg" alt="Teacher Sheikh Ibrahim">
               
               </div>
               <div class="teacher-info">
@@ -521,7 +523,7 @@
           <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
             <div class="teacher-card">
               <div class="teacher-img">
-                <img src="assets/images/teacher4.jpg" alt="Teacher Ustaza Aisha">
+                <img src="assets/images/hijab2.jfif" alt="Teacher Ustaza Aisha">
              
               </div>
               <div class="teacher-info">

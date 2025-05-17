@@ -442,10 +442,17 @@ require_once './includes/auth.php';
 
 /* CTA Section */
 .cta {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--white);
+    background: url("assets/images/q4.jpg");
+    color: black;
     text-align: center;
+    background-repeat: no-repeat;
     padding: 100px 0;
+    width: 100%;
+    height: 350px;
+    background-size: cover;
+    justify-content: center;
+    display: flex;
+    
 }
 
 .cta h2 {
@@ -457,8 +464,14 @@ require_once './includes/auth.php';
     font-size: 18px;
     max-width: 700px;
     margin: 0 auto 30px;
+    
+    color: black;
 }
-
+.cta .btn{
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
 </style>
     <!-- Hero Section -->
     <section class="hero">
@@ -585,7 +598,7 @@ require_once './includes/auth.php';
             <div class="cta-content">
                 <h2>Start Your Quran Learning Journey Today</h2>
                 <p>Join thousands of students learning Quran online with our expert teachers</p>
-                <a href="#" class="btn btn-primary">Get Started</a>
+                <a href="#" class="btn">Get Started</a>
             </div>
         </div>
     </section>

@@ -144,7 +144,7 @@
 .enroll-btn {
   margin-top: 1rem;
   padding: 8px 16px;
-  background: #473d32;
+  background: #ff9800;
   color: white;
   border: none;
   border-radius: 5px;
@@ -994,9 +994,9 @@ hr {
 
 /* ext */
 .abbg {
-  background-image: url("images/banner9.jpg");
+  background-image: url("images/bgg.jpg");
   background-position: center;
-  background-size: auto;
+  background-size: cover;
   background-blend-mode: overlay;
   z-index: -1;
   margin: 0 !important;
@@ -1011,10 +1011,9 @@ hr {
 .abbg h1 {
   justify-content: center;
   text-align: center;
-  color: #5C4033;
+  color: #ff9800;
   font-weight: 500;
   text-decoration: none;
-  margin-top: -0px;
 }
 
 .abo {

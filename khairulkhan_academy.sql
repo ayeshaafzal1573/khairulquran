@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2025 at 07:56 PM
+-- Generation Time: May 17, 2025 at 04:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -18,8 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Khair-ul-Quran_academy`
+-- Database: `khairulkhan_academy`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content_progress`
+--
+
+CREATE TABLE `content_progress` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `content_id` int(11) NOT NULL,
+  `is_completed` tinyint(1) DEFAULT 0,
+  `completed_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -37,15 +51,17 @@ CREATE TABLE `courses` (
   `price` decimal(10,2) DEFAULT NULL,
   `is_featured` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `is_deleted` tinyint(1) DEFAULT 0,
+  `status` enum('draft','ready','started','completed') DEFAULT 'draft'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`course_id`, `title`, `description`, `image_url`, `teacher_id`, `duration`, `price`, `is_featured`, `created_at`, `updated_at`) VALUES
-(1, 'test-1', 'test', 'uploads/course_images/course_681f5ec8d6ad4.jpeg', 2, '3 months', 200.00, 1, '2025-05-10 14:12:24', '2025-05-10 14:14:20');
+INSERT INTO `courses` (`course_id`, `title`, `description`, `image_url`, `teacher_id`, `duration`, `price`, `is_featured`, `created_at`, `updated_at`, `is_deleted`, `status`) VALUES
+(1, 'test-1', 'test', 'uploads/course_images/course_681f5ec8d6ad4.jpeg', 2, '3 months', 200.00, 1, '2025-05-10 14:12:24', '2025-05-10 14:14:20', 0, 'draft');
 
 -- --------------------------------------------------------
 
@@ -61,15 +77,16 @@ CREATE TABLE `course_content` (
   `video_url` varchar(255) DEFAULT NULL,
   `document_url` varchar(255) DEFAULT NULL,
   `sequence_number` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_deleted` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `course_content`
 --
 
-INSERT INTO `course_content` (`content_id`, `course_id`, `title`, `description`, `video_url`, `document_url`, `sequence_number`, `created_at`) VALUES
-(1, 1, 'content-testin', 'content-testing', 'https://www.youtube.com/watch?v=9sekgEXGm-E&list=RD9sekgEXGm-E&start_radio=1', 'uploads/course_documents/doc_681f65bb74e28.docx', 1, '2025-05-10 14:42:03');
+INSERT INTO `course_content` (`content_id`, `course_id`, `title`, `description`, `video_url`, `document_url`, `sequence_number`, `created_at`, `is_deleted`) VALUES
+(1, 1, 'content-testin', 'content-testing', 'https://www.youtube.com/watch?v=9sekgEXGm-E&list=RD9sekgEXGm-E&start_radio=1', 'uploads/course_documents/doc_681f65bb74e28.docx', 1, '2025-05-10 14:42:03', 0);
 
 -- --------------------------------------------------------
 
@@ -92,7 +109,9 @@ CREATE TABLE `enrollments` (
 --
 
 INSERT INTO `enrollments` (`enrollment_id`, `student_id`, `course_id`, `enrollment_date`, `completion_status`, `payment_status`, `transaction_id`) VALUES
-(1, 1, 1, '2025-05-10 07:00:00', 'not_started', 'paid', NULL);
+(1, 1, 1, '2025-05-10 07:00:00', 'not_started', 'paid', NULL),
+(4, 1, 1, '2025-05-16 17:34:12', 'not_started', 'pending', '228288'),
+(5, 1, 1, '2025-05-17 14:27:34', 'not_started', 'pending', '22');
 
 -- --------------------------------------------------------
 
@@ -140,7 +159,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `user_id`, `full_name`, `address`, `contact_number`, `parent_name`, `parent_contact`, `previous_education`, `profile_image`) VALUES
-(1, 3, 'Aisha', 'C-178 SHamsi', '198921919', 'PANDA', '028219', NULL, NULL);
+(1, 3, 'Aisha', 'C-178 SHamsi', '198921919', 'PANDA', '028219', '', '00fa38cbded2062d47ebb682b62ee29b.jpg');
 
 -- --------------------------------------------------------
 
@@ -164,7 +183,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `user_id`, `full_name`, `specialization`, `bio`, `qualifications`, `contact_number`, `profile_image`) VALUES
-(2, 2, 'Maulana Abdullah Khan', 'Tajweed and Hifz', '15 years of teaching experience...', 'Alimiyyah Degree from Darul Uloom...', '+923001234567', NULL);
+(2, 2, 'Maulana Abdullah Khann', 'Tajweed and Hifz', '15 years of teaching experience...', 'Alimiyyah Degree from Darul Uloom...', '+923001234567', 'teacher_2_1747331085.jpeg');
 
 -- --------------------------------------------------------
 
@@ -190,13 +209,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`, `status`, `created_at`, `last_login`, `reset_token`, `token_expiry`) VALUES
-(1, 'admin', 'admin@Khair-ul-Quranacademy.com', 'admin123', 'admin', 1, '2025-05-10 13:34:14', NULL, NULL, NULL),
+(1, 'admin', 'admin@khairulkhanacademy.com', 'admin123', 'admin', 1, '2025-05-10 13:34:14', NULL, NULL, NULL),
 (2, 'Teacher Khan', 'teacher@test.com', 'teacher123', 'teacher', 1, '2025-05-10 14:11:36', NULL, NULL, NULL),
-(3, 'Student', 'ayeshaafzal1573@gmail.com', '$2y$10$Wje3Ncaa9c/nen91.4J0iuLw1abJ6rdzoyOemmIAlfWA7BwgkSaEO', 'student', 1, '2025-05-10 16:28:36', NULL, NULL, NULL);
+(3, 'Student', 'ayeshaafzal1573@gmail.com', 'ayesha123', 'student', 1, '2025-05-10 16:28:36', NULL, '09cb8878781d3893915285a5c27693785db89902c14deab519440814028627ef', '2025-05-14 20:35:50');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `content_progress`
+--
+ALTER TABLE `content_progress`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `content_id` (`content_id`);
 
 --
 -- Indexes for table `courses`
@@ -254,6 +281,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `content_progress`
+--
+ALTER TABLE `content_progress`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
@@ -269,7 +302,7 @@ ALTER TABLE `course_content`
 -- AUTO_INCREMENT for table `enrollments`
 --
 ALTER TABLE `enrollments`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -281,7 +314,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -293,11 +326,18 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `content_progress`
+--
+ALTER TABLE `content_progress`
+  ADD CONSTRAINT `content_progress_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `content_progress_ibfk_2` FOREIGN KEY (`content_id`) REFERENCES `course_content` (`content_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `courses`

@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
       
           <div class="enroll-section">
         <?php if (isLoggedIn() && isStudent()): ?>
-<a id="enrollBtn" href="#" class="btn btn-primary text-decoration-none">Enroll Now</a>
+<a id="enrollBtn" href="#" class="enroll-btn text-decoration-none">Enroll Now</a>
 
 <?php elseif (!isLoggedIn()): ?>
   <a id="loginEnrollBtn" href="#" class="enroll-btn text-decoration-none">Login to Enroll</a>
