@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
             <h6>Teacher: <span id="teacherName"></span></h6>
         <div class="flex-row mt-3">
       
-          <div class="enroll-section">
+         <div class="enroll-section">
         <?php if (isLoggedIn() && isStudent()): ?>
 <a id="enrollBtn" href="#" class="enroll-btn text-decoration-none">Enroll Now</a>
 
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
   <p class="text-danger">Only students can enroll</p>
 <?php endif; ?>
 
-
+ 
           </div>
         </div>
       </div>

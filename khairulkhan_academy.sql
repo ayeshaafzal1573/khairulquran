@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2025 at 04:46 PM
+-- Generation Time: May 18, 2025 at 08:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `khairulkhan_academy`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `subject` varchar(200) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `status` enum('unread','read','replied') DEFAULT 'unread'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `name`, `email`, `subject`, `message`, `created_at`, `status`) VALUES
+(1, 'Gumnaam', 'gumnaam@gmail.com', 'hee', 'iq', '2025-05-18 06:23:07', 'unread');
 
 -- --------------------------------------------------------
 
@@ -86,7 +109,7 @@ CREATE TABLE `course_content` (
 --
 
 INSERT INTO `course_content` (`content_id`, `course_id`, `title`, `description`, `video_url`, `document_url`, `sequence_number`, `created_at`, `is_deleted`) VALUES
-(1, 1, 'content-testin', 'content-testing', 'https://www.youtube.com/watch?v=9sekgEXGm-E&list=RD9sekgEXGm-E&start_radio=1', 'uploads/course_documents/doc_681f65bb74e28.docx', 1, '2025-05-10 14:42:03', 0);
+(1, 1, 'content-testing', 'content-testing', 'https://www.youtube.com/watch?v=9sekgEXGm-E&list=RD9sekgEXGm-E&start_radio=1', 'uploads/course_documents/doc_681f65bb74e28.docx', 1, '2025-05-10 14:42:03', 0);
 
 -- --------------------------------------------------------
 
@@ -218,6 +241,12 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`, `status
 --
 
 --
+-- Indexes for table `contacts`
+--
+ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `content_progress`
 --
 ALTER TABLE `content_progress`
@@ -281,6 +310,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `content_progress`
 --
 ALTER TABLE `content_progress`
@@ -314,7 +349,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -326,7 +361,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

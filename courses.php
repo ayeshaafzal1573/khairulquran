@@ -548,11 +548,24 @@ require_once './includes/auth.php';
             <img src="<?= $image ?>" class="card-img-top" alt="<?= $title ?>" style="height: 200px; object-fit: cover;">
             <div class="card-body">
               <h5 class="card-title"><?= $title ?></h5>
-              <p class="card-text small text-muted"><?= $desc ?></p>
-              <p class="card-text mb-1"><strong>Teacher:</strong> <?= $teacher ?></p>
-              <p class="card-text"><strong>Duration:</strong> <?= $course['duration'] ?></p>
-            </div>
+              <p class="card-text text-muted"><strong>Teacher:</strong> <?= $teacher ?></p>
+              <p class="card-text text-muted"><strong>Duration:</strong> <?= $course['duration'] ?></p>
+          
+         <div class="enroll-section">
+        <?php if (isLoggedIn() && isStudent()): ?>
+<a id="enrollBtn" href="#" class="enroll-btn text-decoration-none">Enroll Now</a>
+
+<?php elseif (!isLoggedIn()): ?>
+  <a id="loginEnrollBtn" href="#" class="enroll-btn text-decoration-none">Login to Enroll</a>
+<?php else: ?>
+  <p class="text-danger">Only students can enroll</p>
+<?php endif; ?>
+
+ 
           </div>
+            </div>
+         
+        </div>
         </div>
       <?php endforeach;
       else:

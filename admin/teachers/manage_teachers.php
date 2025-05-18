@@ -28,7 +28,6 @@ if (isset($_GET['toggle_status']) && is_numeric($_GET['toggle_status'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Teachers - Khair-ul-Quran Academy</title>
-    <?php include '../../includes/header.php'; ?>
 </head>
 <body>
    <div class="container-fluid">

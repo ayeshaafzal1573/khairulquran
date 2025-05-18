@@ -72,7 +72,7 @@
       </ul>
 
   <div class="mt-auto">
-    <form action="../includes/logout.php" method="POST">
+    <form action="../../logout.php" method="POST">
       <button type="submit" class="btn btn-danger w-100 mt-3">
         <i class="fas fa-power-off me-2"></i> Logout
       </button>

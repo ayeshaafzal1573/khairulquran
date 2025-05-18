@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-    $confirmPassword = trim($_POST['confirm_password']);
     $fullName = trim($_POST['full_name']);
     $contact = trim($_POST['contact_number']);
     
@@ -28,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username)) $errors[] = 'Username is required';
     if (empty($email)) $errors[] = 'Email is required';
     if (empty($password)) $errors[] = 'Password is required';
-    if ($password !== $confirmPassword) $errors[] = 'Passwords do not match';
     if (empty($fullName)) $errors[] = 'Full name is required';
     if (!in_array($role, ['student', 'teacher'])) $errors[] = 'Invalid role selected';
 
