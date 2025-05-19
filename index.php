@@ -56,11 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
             ></div>
             <div
               class="bg"
-              style="background-image: url(/assets/images/banner4.jpg)"
+              style="background-image: url(./assets/images/banner4.jpg)"
             ></div>
             <div
               class="bg"
-              style="background-image: url(/assets/images/banner5.jpg)"
+              style="background-image: url(./assets/images/banner5.jpg)"
             ></div>
           </div>
         </div>
@@ -193,6 +193,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
   } ?>
   </div>
 </section>
+<script>
+  const upBtn = document.querySelector('.up');
+  const downBtn = document.querySelector('.down');
+  const textSlides = document.querySelectorAll('.left-slider .slide');
+  const imgSlides = document.querySelectorAll('.img-slide .bg');
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    textSlides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    imgSlides.forEach((img, i) => {
+      img.classList.toggle('active', i === index);
+    });
+  }
+
+  upBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % textSlides.length;
+    showSlide(currentSlide);
+  });
+
+  downBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + textSlides.length) % textSlides.length;
+    showSlide(currentSlide);
+  });
+</script>
 
 
 <!-- Course Details Modal -->
@@ -224,40 +250,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
     </div>
   </div>
 </div>
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById("courseModal");
-  const courseCards = document.querySelectorAll(".course-card");
-  const closeButton = document.querySelector(".close-button");
+  const slideLeft = document.querySelector('.left-slider');
+  const slideRight = document.querySelector('.img-slide');
+  const upButton = document.querySelector('.up');
+  const downButton = document.querySelector('.down');
+  const slideLength = slideRight.querySelectorAll('.bg').length;
 
-  courseCards.forEach(card => {
-    card.addEventListener("click", () => {
-      const courseId = card.dataset.courseId;
-      const enrollBtn = document.getElementById('enrollBtn');
-      const loginBtn = document.getElementById('loginEnrollBtn');
+  let activeSlideIndex = 0;
 
-      // Update modal content
-      document.getElementById('courseImage').src = card.dataset.image;
-      document.getElementById('courseTitle').textContent = card.dataset.title;
-      document.getElementById('courseDescription').textContent = card.dataset.description;
-      document.getElementById('teacherName').textContent = card.dataset.teachername;
+  // Set initial position
+  slideLeft.style.top = `-${(slideLength - 1) * 100}vh`;
 
-    if (enrollBtn) {
-  enrollBtn.href = `handle_enroll.php?course_id=${courseId}`;
-}
-
-      if(loginBtn) {
-        loginBtn.href = `login.php?redirect=${encodeURIComponent(`enroll.php?course_id=${courseId}`)}`;
+  const changeSlide = (direction) => {
+    if (direction === 'up') {
+      activeSlideIndex++;
+      if (activeSlideIndex > slideLength - 1) {
+        activeSlideIndex = 0;
       }
+    } else if (direction === 'down') {
+      activeSlideIndex--;
+      if (activeSlideIndex < 0) {
+        activeSlideIndex = slideLength - 1;
+      }
+    }
 
-      modal.style.display = "flex";
-    });
-  });
+    slideRight.style.transform = `translateY(-${activeSlideIndex * 100}vh)`;
+    slideLeft.style.transform = `translateY(${activeSlideIndex * 100}vh)`;
+  };
 
-  closeButton.addEventListener("click", () => modal.style.display = "none");
-  window.addEventListener("click", (e) => e.target === modal && (modal.style.display = "none"));
-});
+  upButton.addEventListener('click', () => changeSlide('up'));
+  downButton.addEventListener('click', () => changeSlide('down'));
 </script>
 
    <!-- End Banner -->
