@@ -4,7 +4,7 @@ require_once './includes/auth.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
         $_SESSION['error'] = 'Please login as a student to enroll.';
-        header('Location: login.php');
+        header('Location: register.php');
         exit;
     } else {
         header("Location: courses.php");
@@ -114,7 +114,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
                 Through <strong>Khairul Quran Academy</strong> live sessions, your child will explore the
                 teachings of the Quran and embrace Islamic values in a meaningful way.
               </p>
-              <button>ENROLL NOW</button>
+                      <form method="POST">
+  <input type="hidden" name="enroll_now" value="1">
+  <button type="submit">ENROLL NOW</button>
+</form>
             </div>
           </div>
         </div>
@@ -153,10 +156,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
                   With <strong>Khairul Quran Academy</strong> live classes, your child will build a strong foundation
                   in Quran, Tajweed, and Islamic values — from the comfort of home.
                 </p>
-           <form method="POST">
+           <!-- <form method="POST">
   <input type="hidden" name="enroll_now" value="1">
   <button type="submit">ENROLL NOW</button>
-</form>
+</form> -->
             </div>
           </div>
         </div>

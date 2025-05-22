@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $db->prepare("INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)");
             $stmt->execute([$name, $email, $subject, $message]);
-            
+
             $_SESSION['success'] = "Your message has been sent successfully!";
-            header("Location: ".$_SERVER['PHP_SELF']);
+            header("Location: " . $_SERVER['PHP_SELF']);
             exit();
         } catch (PDOException $e) {
-            $_SESSION['error'] = "Error sending message: ".$e->getMessage();
+            $_SESSION['error'] = "Error sending message: " . $e->getMessage();
         }
     } else {
         $_SESSION['error'] = implode("<br>", $errors);
@@ -52,23 +52,23 @@ include './includes/header.php';
         text-align: center;
         margin-bottom: 3rem;
         border-radius: 0 0 30px 30px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .header h1 {
         font-size: 2.8rem;
         margin-bottom: 1rem;
         font-weight: 700;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     }
 
     .contact-form {
         background: var(--bg-light);
         padding: 2.5rem;
         border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         position: relative;
-        border: 1px solid rgba(0,0,0,0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .contact-form::before {
@@ -90,7 +90,7 @@ include './includes/header.php';
 
     .form-control:focus {
         border-color: var(--secondary-color);
-        box-shadow: 0 0 0 3px rgba(255,152,0,0.2);
+        box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
     }
 
     .submit-btn {
@@ -107,20 +107,20 @@ include './includes/header.php';
         display: inline-flex;
         align-items: center;
         gap: 0.8rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .submit-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 7px 14px rgba(0,0,0,0.15);
+        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
     }
 
     .map-container {
         border-radius: 15px;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         margin: 3rem 0;
-        border: 1px solid rgba(0,0,0,0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     /* Alert Messages */
@@ -146,13 +146,15 @@ include './includes/header.php';
 <div class="container">
     <?php if (isset($_SESSION['success'])): ?>
         <div class="alert alert-success">
-            <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+            <?= $_SESSION['success'];
+            unset($_SESSION['success']); ?>
         </div>
     <?php endif; ?>
-    
+
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-danger">
-            <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+            <?= $_SESSION['error'];
+            unset($_SESSION['error']); ?>
         </div>
     <?php endif; ?>
 
@@ -168,23 +170,23 @@ include './includes/header.php';
                 <form id="contactForm" method="POST">
                     <div class="mb-4">
                         <label for="name" class="form-label">Your Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required 
-                               value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
+                        <input type="text" id="name" name="name" class="form-control" required
+                            value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
                     </div>
                     <div class="mb-4">
                         <label for="email" class="form-label">Email Address</label>
                         <input type="email" id="email" name="email" class="form-control" required
-                               value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
                     </div>
                     <div class="mb-4">
                         <label for="subject" class="form-label">Subject</label>
                         <input type="text" id="subject" name="subject" class="form-control" required
-                               value="<?= htmlspecialchars($_POST['subject'] ?? '') ?>">
+                            value="<?= htmlspecialchars($_POST['subject'] ?? '') ?>">
                     </div>
                     <div class="mb-4">
                         <label for="message" class="form-label">Your Message</label>
-                        <textarea id="message" name="message" rows="5" class="form-control" required><?= 
-                            htmlspecialchars($_POST['message'] ?? '') ?></textarea>
+                        <textarea id="message" name="message" rows="5" class="form-control" required><?=
+                                                                                                        htmlspecialchars($_POST['message'] ?? '') ?></textarea>
                     </div>
                     <button type="submit" class="submit-btn">
                         Send Message <i class="fas fa-paper-plane"></i>
@@ -196,11 +198,7 @@ include './includes/header.php';
 
     <!-- Map Section -->
     <div class="map-container my-5" data-aos="fade-out">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215209179535!2d-73.98784492401796!3d40.74844097138989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629999999999!5m2!1sen!2sus"
-            loading="lazy"
-            allowfullscreen>
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14478.204672071332!2d67.16002818203154!3d24.879174563165268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb339f3256a595f%3A0xaccc6a871948b0e5!2sShamsi%20Society%20Shah%20Faisal%20Colony%2C%20Shah%20Faisal%20Town%2C%20Pakistan!5e0!3m2!1sen!2sus!4v1747897352916!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </div>
 
