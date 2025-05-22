@@ -11,7 +11,7 @@
             <span class="fw-bold">Khair ul Quran</span>
           </a>
         </div>
-        <p>Muslim Quran Academy provides online Quran classes for kids and adults with qualified Quran teachers from Egypt.</p>
+        <p>Khair ul Quran Academy provides online Quran classes for kids and adults with qualified Quran teachers from Egypt.</p>
         <div class="social-links d-flex justify-content-center justify-content-md-start mt-3">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-twitter"></i></a>
@@ -57,7 +57,7 @@
 
     <!-- Footer Bottom -->
     <div class="footer-bottom border-top border-light pt-3 mt-4 text-center">
-      <p class="mb-1">&copy; 2023 Muslim Quran Academy. All Rights Reserved.</p>
+      <p class="mb-1">&copy; 2025 Khair ul Quran. All Rights Reserved.</p>
       <div class="footer-links d-flex justify-content-center gap-3">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
