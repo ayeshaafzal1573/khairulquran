@@ -57,7 +57,7 @@
     <div class="footer-bottom border-top border-light pt-3 mt-4 text-center">
       <p class="mb-1">&copy; 2025 Khair ul Quran. All Rights Reserved.</p>
       <div class="footer-links d-flex justify-content-center gap-3">
-        <a href="#">Privacy Policy</a>
+        <a href="privacy-policy.php">Privacy Policy</a>
         <a href="#">Terms of Services</a>
       </div>
     </div>
