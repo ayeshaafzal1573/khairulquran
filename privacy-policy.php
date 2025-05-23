@@ -7,18 +7,16 @@
   <title>Privacy Policy - Khair ul Quran Academy</title>
 <style>
     :root {
-      --primary-color:rgb(132, 94, 80); /* Vibrant orange */
-      --secondary-color:rgb(112, 126, 137); /* Deep blue */
-      --accent-color:#8B5A2B; /* Bright yellow */
+      --primary-color:rgb(156, 116, 92); /* Vibrant orange */
+      --secondary-color:rgb(0, 0, 0); /* Deep blue */
+      --accent-color:#dcd6d1; /* Bright yellow */
       --dark-text:rgb(249, 246, 243); /* Almost black */
       --light-bg:rgb(219, 201, 201); /* Pure white */
-      --highlight-color: #8B5A2B ; /* Off-white */
-      --brown-accent:rgb(224, 218, 213); /* Rich brown */
+      --highlight-color: #695444 ; /* Off-white */
+      --brown-accent:rgb(248, 248, 248); /* Rich brown */
     }
     
-    body {
-      font-family: 'Inter', 'Segoe UI', sans-serif;
-      line-height: 1.7;
+    body {line-height: 1.7;
       color: var(--dark-text);
       background-color: var(--light-bg);
       margin: 0;
