@@ -13,38 +13,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch();
 
-      if ($user) {
-    $_SESSION['user_id'] = $user['user_id'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['role'] = $user['role'];
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role'];
 
-    // Check for redirect after login
-    $redirect = $_POST['redirect'] ?? '';
+            // Check for redirect after login
+            $redirect = $_POST['redirect'] ?? '';
 
-    if ($user['role'] === 'student' && $redirect === 'enroll_now') {
-        // Redirect back to enroll page (adjust URL as needed)
-        header('Location: enroll_now.php');
-    } else {
-        // Normal role-based redirects
-        switch ($user['role']) {
-            case 'admin':
-                header('Location: admin/dashboard.php');
-                break;
-            case 'teacher':
-                header('Location: teacher/dashboard.php');
-                break;
-            case 'student':
-                header('Location: student/dashboard.php');
-                break;
-            default:
-                header('Location: index.php');
+            if ($user['role'] === 'student' && $redirect === 'enroll_now') {
+                // Redirect back to enroll page (adjust URL as needed)
+                header('Location: enroll_now.php');
+            } else {
+                // Normal role-based redirects
+                switch ($user['role']) {
+                    case 'admin':
+                        header('Location: admin/dashboard.php');
+                        break;
+                    case 'teacher':
+                        header('Location: teacher/dashboard.php');
+                        break;
+                    case 'student':
+                        header('Location: student/dashboard.php');
+                        break;
+                    default:
+                        header('Location: index.php');
+                }
+            }
+            exit;
+        } else {
+            $error = 'Invalid username or password';
         }
-    }
-    exit;
-} else {
-    $error = 'Invalid username or password';
-}
-
     }
 }
 ?>
@@ -87,18 +86,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
         }
 
-        .btn-login{
-   border-radius: 10px;
+        .btn-login {
+            border-radius: 10px;
             background-color: #473d32;
             font-weight: bold;
-            color:white;
+            color: white;
         }
 
-      a{
-    text-decoration:none;
-color:#ff9800;
+        a {
+            text-decoration: none;
+            color: #ff9800;
+        }
+        
+        .forgot-password {
+            display: inline-block;
+            color: white;
+            font-weight: 500;
+            margin-left: 5px;
+            transition: color 0.3s ease;
+            text-align: left;
+        }
 
-}
+        .forgot-password:hover {
+            color: #ffc107;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -112,7 +124,7 @@ color:#ff9800;
                 </div>
 
                 <?php if ($error): ?>
-                <div class="alert alert-danger"><?= $error ?></div>
+                    <div class="alert alert-danger"><?= $error ?></div>
                 <?php endif; ?>
 
                 <form method="POST">
@@ -124,6 +136,11 @@ color:#ff9800;
                         <label for="password" class="form-label text-white">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
+                    
+                    <div class="text-end mb-2">
+                        <a href="forgot-password.php" class="forgot-password">Forgot Password?</a>
+                    </div>
+
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-login">Login</button>
                     </div>

@@ -20,7 +20,6 @@ $stmt = $db->prepare("
 $stmt->execute([$teacherId]);
 $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 if (!$teacher) {
     header('Location: manage_teachers.php');
     exit;
@@ -35,6 +34,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bio = trim($_POST['bio']);
     $contact = trim($_POST['contact_number']);
     $status = isset($_POST['status']) ? 1 : 0;
+    $currentImage = $teacher['profile_image']; // Get current image path
+
+    // Handle file upload if new image is provided
+    if (isset($_FILES['teacher_image']) && $_FILES['teacher_image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../../uploads/teacher_images/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        
+        $extension = pathinfo($_FILES['teacher_image']['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('teacher_') . '.' . $extension;
+        $destination = $uploadDir . $filename;
+        
+        if (move_uploaded_file($_FILES['teacher_image']['tmp_name'], $destination)) {
+            // Delete old image if it exists
+            if ($currentImage && file_exists('../../' . $currentImage)) {
+                unlink('../../' . $currentImage);
+            }
+            $currentImage = 'uploads/teacher_images/' . $filename;
+        }
+    }
 
     // Validate inputs
     $errors = [];
@@ -57,9 +77,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $db->prepare("UPDATE users SET password = ? WHERE user_id = ?")->execute([$hashedPassword, $teacher['user_id']]);
             }
 
-            // Update teacher profile
-            $teacherStmt = $db->prepare("UPDATE teachers SET full_name = ?, specialization = ?, qualifications = ?, bio = ?, contact_number = ? WHERE teacher_id = ?");
-            $teacherStmt->execute([$fullName, $specialization, $qualifications, $bio, $contact, $teacherId]);
+            // Update teacher profile with image
+            $teacherStmt = $db->prepare("
+                UPDATE teachers SET 
+                full_name = ?, 
+                specialization = ?, 
+                qualifications = ?, 
+                bio = ?, 
+                contact_number = ?,
+                profile_image = ?
+                WHERE teacher_id = ?
+            ");
+            $teacherStmt->execute([
+                $fullName, 
+                $specialization, 
+                $qualifications, 
+                $bio, 
+                $contact,
+                $currentImage,
+                $teacherId
+            ]);
 
             $db->commit();
             $_SESSION['message'] = "Teacher updated successfully!";
@@ -104,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <?php endif; ?>
 
-                        <form method="POST">
+                        <form method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-6">
                                     <h6 class="mb-3">Account Information</h6>
@@ -129,6 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <label class="form-check-label" for="status">Active Account</label>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <h6 class="mb-3">Professional Information</h6>
                                     <div class="mb-3">
@@ -145,6 +183,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <label for="contact_number" class="form-label">Contact Number</label>
                                         <input type="text" class="form-control" id="contact_number" name="contact_number" 
                                                value="<?= htmlspecialchars($teacher['contact_number']) ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                       
+                                        <label for="teacher_image" class="form-label">Change Image</label>
+                                        <input type="file" class="form-control" id="teacher_image" name="teacher_image" accept="image/*">
                                     </div>
                                 </div>
                             </div>
