@@ -38,21 +38,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle file upload if new image is provided
     if (isset($_FILES['teacher_image']) && $_FILES['teacher_image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = '../../uploads/teacher_images/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
-        }
-        
-        $extension = pathinfo($_FILES['teacher_image']['name'], PATHINFO_EXTENSION);
-        $filename = uniqid('teacher_') . '.' . $extension;
-        $destination = $uploadDir . $filename;
-        
-        if (move_uploaded_file($_FILES['teacher_image']['tmp_name'], $destination)) {
-            // Delete old image if it exists
-            if ($currentImage && file_exists('../../' . $currentImage)) {
-                unlink('../../' . $currentImage);
+        $imageTmpPath = $_FILES['teacher_image']['tmp_name'];
+        $imageName = basename($_FILES['teacher_image']['name']);
+        $imageExt = pathinfo($imageName, PATHINFO_EXTENSION);
+        $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (in_array(strtolower($imageExt), $allowedExts)) {
+            $newFileName = uniqid('teacher_') . '.' . $imageExt;
+            $uploadDir = '../../uploads/teachers/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
             }
-            $currentImage = 'uploads/teacher_images/' . $filename;
+            $destPath = $uploadDir . $newFileName;
+            if (move_uploaded_file($imageTmpPath, $destPath)) {
+                // Delete old image if it exists
+                if ($currentImage && file_exists('../../uploads/teachers/' . $currentImage)) {
+                    unlink('../../uploads/teachers/' . $currentImage);
+                }
+                $currentImage = $newFileName;
+            } else {
+                $errors[] = 'Image upload failed.';
+            }
+        } else {
+            $errors[] = 'Invalid image format. Only JPG, PNG, GIF allowed.';
         }
     }
 
@@ -185,9 +193,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                value="<?= htmlspecialchars($teacher['contact_number']) ?>">
                                     </div>
                                     <div class="mb-3">
-                                       
+                                        <?php if ($teacher['profile_image']): ?>
+                                        <div class="mb-2">
+                                            <img src="../../uploads/teachers/<?= htmlspecialchars($teacher['profile_image']) ?>" 
+                                                 alt="Current Teacher Image" style="max-height: 100px;">
+                                            <p class="text-muted">Current Image</p>
+                                        </div>
+                                        <?php endif; ?>
                                         <label for="teacher_image" class="form-label">Change Image</label>
                                         <input type="file" class="form-control" id="teacher_image" name="teacher_image" accept="image/*">
+                                        <small class="text-muted">Recommended size: 800x450px</small>
                                     </div>
                                 </div>
                             </div>
