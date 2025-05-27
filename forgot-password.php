@@ -21,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
         
         if ($user) {
             $token = bin2hex(random_bytes(32));
-            $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-            
+          $expiry = date("Y-m-d H:i:s", strtotime('+6 hours'));
             $updateStmt = $db->prepare("UPDATE users SET reset_token = ?, token_expiry = ? WHERE user_id = ?");
             $updateStmt->execute([$token, $expiry, $user['user_id']]);
             
@@ -100,12 +99,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password - Khair-ul-Quran Academy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
+      <style>
+       body {
+            background: url('./assets/images/forget.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
         }
         .card {
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(244, 98, 57, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
         .logo {
             max-width: 150px;
@@ -114,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
     </style>
 </head>
 <body>
-    <div class="container py-5">
+    <div class="container">
         <div class="row justify-content-center align-items-center min-vh-100">
             <div class="col-md-6 col-lg-5">
                 <div class="card shadow border-0">

@@ -248,12 +248,12 @@
   .teacher-img {
     position: relative;
     overflow: hidden;
-    height: 400px !important;
+    height: 300px !important;
   }
 
   .teacher-img img {
     width: 100%;
-    height: auto;
+    height: 300px;
     transition: transform 0.5s ease;
   }
 

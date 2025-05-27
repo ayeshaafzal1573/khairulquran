@@ -299,7 +299,7 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
                                 <div class="d-flex align-items-center">
                                     <div class="me-4 text-center">
                                         <?php if ($student['profile_image']): ?>
-                                            <img src="../uploads/<?= htmlspecialchars($student['profile_image']) ?>" 
+                                            <img src="../uploads/profiles/<?= htmlspecialchars($student['profile_image']) ?>" 
                                                  alt="Current Profile" class="profile-image-preview" id="imagePreview">
                                         <?php else: ?>
                                             <img src="../assets/default-profile.jpg" 

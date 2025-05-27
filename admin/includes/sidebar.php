@@ -45,32 +45,32 @@
   <!-- Sidebar Navigation -->
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link" href="/khairulquran/khairulquran/admin/dashboard.php">
+      <a class="nav-link" href="/khairulquran/admin/dashboard.php">
         <i class="bi bi-speedometer2 me-2"></i> Dashboard
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/khairulquran/khairulquran/admin/courses/manage_courses.php">
+      <a class="nav-link" href="/khairulquran/admin/courses/manage_courses.php">
         <i class="bi bi-book me-2"></i> Courses
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/khairulquran/khairulquran/admin/students/manage_students.php">
+      <a class="nav-link" href="/khairulquran/admin/students/manage_students.php">
         <i class="bi bi-people me-2"></i> Students
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/khairulquran/khairulquran/admin/teachers/manage_teachers.php">
+      <a class="nav-link" href="/khairulquran/admin/teachers/manage_teachers.php">
         <i class="bi bi-person-badge me-2"></i> Teachers
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/khairulquran/khairulquran/admin/enrollments/manage_enrollments.php">
+      <a class="nav-link" href="/khairulquran/admin/enrollments/manage_enrollments.php">
         <i class="bi bi-clipboard-check me-2"></i> Enrollments
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/khairulquran/khairulquran/admin/payments/manage_payments.php">
+      <a class="nav-link" href="/khairulquran/admin/payments/manage_payments.php">
         <i class="bi bi-file-earmark-text me-2"></i> Manage Payments
       </a>
     </li>

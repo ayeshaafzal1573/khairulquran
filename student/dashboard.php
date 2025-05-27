@@ -116,8 +116,8 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
         <div class="col-md-3 col-lg-2 d-md-block sidebar collapse p-0">
             <div class="user-profile">
                 <?php if ($student['profile_image']): ?>
-                    <img src="../uploads/<?= htmlspecialchars($student['profile_image']) ?>" alt="Profile">
-                <?php else: ?>
+                  <img src="../uploads/profiles/<?= htmlspecialchars($student['profile_image']) ?>" alt="Profile">
+   <?php else: ?>
                     <img src="../assets/default-profile.jpg" alt="Profile">
                 <?php endif; ?>
                 <h5><?= htmlspecialchars($student['full_name']) ?></h5>

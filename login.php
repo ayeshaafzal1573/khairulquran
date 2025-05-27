@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         header('Location: teacher/dashboard.php');
                         break;
                     case 'student':
-                        header('Location: student/dashboard.php');
+                        header('Location: index.php');
                         break;
                     default:
                         header('Location: index.php');
