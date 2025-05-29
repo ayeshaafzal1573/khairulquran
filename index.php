@@ -13,6 +13,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
 }
 ?>
 <?php include './includes/header.php'; ?>
+<style>
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 70%;
+  max-width: 600px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.arbaz-button {
+display: flex;
+justify-content: flex-end;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+</style>
     <div class="container-fluid slide-con">
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -170,7 +201,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
   <h3>Our Courses</h3>
   <div class="course-grid">
   <?php
-  $sql = "SELECT * FROM courses c LEFT JOIN teachers t ON c.teacher_id = t.teacher_id LIMIT 6";
+$sql = "SELECT 
+    c.course_id, 
+    c.title, 
+    c.image_url, 
+    c.description, 
+    t.full_name AS teacher_name
+FROM 
+    courses c
+LEFT JOIN 
+    teachers t ON c.teacher_id = t.teacher_id;
+
+        LIMIT 6";
+
   $stmt = $db->query($sql);
   $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -180,7 +223,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
       $title = htmlspecialchars($course['title']);
       $image = htmlspecialchars($course['image_url']);
       $desc  = htmlspecialchars($course['description']);
-      $teacherName = htmlspecialchars($course['full_name'] ?? 'N/A');
+   $teacherName = htmlspecialchars($course['teacher_name'] ?? 'N/A');
+
+
   ?>
     <div class="course-card" 
          data-course-id="<?= $courseId ?>"
@@ -227,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
 <!-- Course Details Modal -->
 <div id="courseModal" class="modal">
   <div class="modal-content">
-    <span class="close-button">&times;</span>
+    <span class="arbaz-button">&times;</span>
     <div class="modal-body">
       <img id="courseImage" src="" alt="Course Image" />
       <div class="course-info">
@@ -253,6 +298,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
     </div>
   </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const courseCards = document.querySelectorAll(".course-card");
+  const modal = document.getElementById("courseModal");
+  const closeButton = modal.querySelector(".arbaz-button");
+
+  courseCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const title = card.getAttribute("data-title");
+      const image = card.getAttribute("data-image");
+      const description = card.getAttribute("data-description");
+      const teacherName = card.getAttribute("data-teachername");
+
+      // Set modal content
+      document.getElementById("courseTitle").innerText = title;
+      document.getElementById("courseImage").src = image;
+      document.getElementById("courseDescription").innerText = description;
+    document.getElementById("teacherName").innerText = teacherName;
+
+console.log("Teacher Name:", teacherName);
+      // Show modal
+      modal.style.display = "block";
+    });
+  });
+
+  // Close modal
+  closeButton.addEventListener("click", () => {
+    modal.style.display = "none";
+  console.log("CLOSE BUTTON TRIGGERED")
+  });
+
+
+  // Close on outside click
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
+
 <script>
   const slideLeft = document.querySelector('.left-slider');
   const slideRight = document.querySelector('.img-slide');

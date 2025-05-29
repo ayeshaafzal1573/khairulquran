@@ -1,7 +1,31 @@
 <?php
+ob_start();
 require_once 'includes/config.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $error = '';
 
+// Redirect if already logged in
+if (isset($_SESSION['user_id'])) {
+    switch ($_SESSION['role']) {
+        case 'admin':
+            header('Location: admin/dashboard.php');
+            exit;
+        case 'teacher':
+            header('Location: teacher/dashboard.php');
+            exit;
+        case 'student':
+            header('Location: index.php');
+            exit;
+        default:
+            header('Location: index.php');
+            exit;
+    }
+}
+
+// ✅ This block was missing
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
@@ -18,35 +42,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            // Check for redirect after login
-            $redirect = $_POST['redirect'] ?? '';
-
-            if ($user['role'] === 'student' && $redirect === 'enroll_now') {
-                // Redirect back to enroll page (adjust URL as needed)
-                header('Location: enroll_now.php');
-            } else {
-                // Normal role-based redirects
-                switch ($user['role']) {
-                    case 'admin':
-                        header('Location: admin/dashboard.php');
-                        break;
-                    case 'teacher':
-                        header('Location: teacher/dashboard.php');
-                        break;
-                    case 'student':
-                        header('Location: index.php');
-                        break;
-                    default:
-                        header('Location: index.php');
-                }
+            switch ($user['role']) {
+                case 'admin':
+                    header('Location: admin/dashboard.php');
+                    exit;
+                case 'teacher':
+                    header('Location: teacher/dashboard.php');
+                    exit;
+                case 'student':
+                    header('Location: index.php');
+                    exit;
+                default:
+                    header('Location: index.php');
+                    exit;
             }
-            exit;
         } else {
             $error = 'Invalid username or password';
         }
     }
 }
 ?>
+
+<?php if (!empty($error)): ?>
+    <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -9,6 +9,10 @@ define('DB_NAME', 'khairulkhan_academy');
 define('SITE_NAME', 'Khair-ul-Quran Academy');
 define('SITE_URL', 'http://localhost/Khair-ul-Quran-academy');
 
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 // Create database connection
 try {
     $db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);

@@ -244,22 +244,12 @@
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   }
-
-  .teacher-img {
-    position: relative;
-    overflow: hidden;
-    height: 300px !important;
-  }
-
-  .teacher-img img {
-    width: 100%;
-    height: 300px;
-    transition: transform 0.5s ease;
-  }
-
-  .teacher-card:hover .teacher-img img {
-    transform: scale(1.1);
-  }
+.teacher-img img{
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+  width: 100%;
+}
 
   .teacher-info {
     padding: 20px;
@@ -496,7 +486,7 @@
       ?>
 
       <?php foreach ($courses as $course): ?>
-        <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+        <div class="col-lg-3 col-md-4 col-4" data-aos="zoom-in">
           <div class="teacher-card">
             <div class="teacher-img">
               <img src="uploads/teachers/<?= $course['profile_image']; ?>" alt="Teacher <?= htmlspecialchars($course['full_name']) ?>">
@@ -510,60 +500,7 @@
         </div>
       <?php endforeach; ?>
 
-      
-
-      <!-- <div class="col-lg-3 col-md-6" data-aos="zoom-in">
-        <div class="teacher-card">
-          <div class="teacher-img">
-            <img src="assets/images/man2.webp" alt="Teacher Hafiz Ahmed">
-
-          </div>
-          <div class="teacher-info">
-            <h3>Hafiz Ahmed Ali</h3>
-            <span>Tajweed Specialist</span>
-            <p>15 years experience, Ijazah in Hafs recitation</p>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="teacher-card">
-              <div class="teacher-img">
-                <img src="assets/images/hijab.webp" alt="Teacher Ustaza Fatima">
-              
-              </div>
-              <div class="teacher-info">
-                <h3>Ustaza Fatima Khan</h3>
-                <span>Quran Memorization</span>
-                <p>Hafiza with 10 years teaching experience</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="teacher-card">
-              <div class="teacher-img">
-                <img src="assets/images/man2.jpg" alt="Teacher Sheikh Ibrahim">
-              
-              </div>
-              <div class="teacher-info">
-                <h3>Sheikh Ibrahim Malik</h3>
-                <span>Tafseer Expert</span>
-                <p>PhD in Islamic Studies, Al-Azhar graduate</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="teacher-card">
-              <div class="teacher-img">
-                <img src="assets/images/hijab2.jfif" alt="Teacher Ustaza Aisha">
-             
-              </div>
-              <div class="teacher-info">
-                <h3>Ustaza Aisha Rahman</h3>
-                <span>Children's Education</span>
-                <p>Specialist in child psychology and Quran teaching</p>
-              </div>
-            </div>
-          </div> -->
+    
     </div>
   </div>
 </section>

@@ -16,12 +16,6 @@
       --brown-accent:rgb(248, 248, 248); /* Rich brown */
     }
     
-    body {line-height: 1.7;
-      color: var(--dark-text);
-      background-color: var(--light-bg);
-      margin: 0;
-      padding: 0;
-    }
     
     .privacy-container {
       max-width: 900px;
@@ -90,14 +84,6 @@
       padding-left: 1.5rem;
     }
     
-    .privacy-container li:before {
-      content: '•';
-      color: var(--primary-color);
-      font-size: 1.8rem;
-      position: absolute;
-      left: 0;
-      top: -0.4rem;
-    }
     
     .highlight-box {
       background-color: var(--highlight-color);
@@ -109,7 +95,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
     
-    .contact-info {
+    .contact-info-bg {
       background: linear-gradient(135deg, var(--highlight-color), var(--light-bg));
       padding: 2rem;
       border-radius: 10px;
@@ -118,19 +104,19 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
     
-    .contact-info h2 {
+    .contact-info-bg h2 {
       color: var(--brown-accent);
       margin-top: 0;
     }
     
-    .contact-info a {
+    .contact-info-bg a {
       color: var(--secondary-color);
       text-decoration: none;
       font-weight: 500;
       transition: all 0.2s;
     }
     
-    .contact-info a:hover {
+    .contact-info-bg a:hover {
       color: var(--primary-color);
       text-decoration: underline;
     }
@@ -238,7 +224,7 @@
     <h2>9. Policy Evolution</h2>
     <p>This living document is regularly reviewed and updated. Significant changes will be communicated through our official channels.</p>
 
-    <div class="contact-info">
+    <div class="contact-info-bg">
       <h2>10. Connect With Us</h2>
       <p>For privacy inquiries or to exercise your rights:</p>
       <p>

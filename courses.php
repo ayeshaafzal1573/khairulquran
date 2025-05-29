@@ -138,7 +138,7 @@ require_once './includes/auth.php';
     }
 
     .section-header h2.text-gradient {
-        background: linear-gradient(45deg, #2b5876, #4e4376);
+        background: #ff9800;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -148,7 +148,7 @@ require_once './includes/auth.php';
     .divider {
         width: 80px;
         height: 4px;
-        background: linear-gradient(90deg, #4e4376, #2b5876);
+        background:#ff9800;
         margin: 1rem auto;
         border-radius: 2px;
     }
@@ -189,7 +189,7 @@ require_once './includes/auth.php';
         position: absolute;
         top: 15px;
         right: 15px;
-        background: rgba(75, 123, 236, 0.9);
+        background: #473d32;
         color: white;
         padding: 5px 10px;
         border-radius: 20px;
@@ -199,7 +199,7 @@ require_once './includes/auth.php';
 
     .teacher-badge {
         background: #f0f4ff;
-        color: #4b7bec;
+        color:brown;
         padding: 3px 8px;
         border-radius: 20px;
         font-size: 0.75rem;
@@ -210,7 +210,7 @@ require_once './includes/auth.php';
     /* Enroll Button Styling */
     .enroll-btn {
         display: inline-block;
-        background: linear-gradient(45deg, #4e4376, #2b5876);
+        background: #ff9800;
         color: white !important;
         padding: 8px 20px;
         border-radius: 30px;
@@ -218,14 +218,12 @@ require_once './includes/auth.php';
         font-size: 0.85rem;
         text-decoration: none !important;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(75, 123, 236, 0.3);
         border: none;
     }
 
     .enroll-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(75, 123, 236, 0.4);
-        background: linear-gradient(45deg, #2b5876, #4e4376);
+        background:#ff9800;
     }
 
     /* Filter Buttons */
@@ -240,7 +238,7 @@ require_once './includes/auth.php';
     }
 
     .filter-btn.active {
-        background: linear-gradient(45deg, #4e4376, #2b5876) !important;
+        background: #473d32 !important;
         border-color: transparent !important;
     }
 
@@ -611,10 +609,10 @@ require_once './includes/auth.php';
         <!-- Duration Filters -->
         <div class="course-filters text-center mb-5">
             <div class="btn-group btn-group-pill" role="group">
-                <button class="filter-btn btn btn-primary active" data-filter="all">All Courses</button>
-                <button class="filter-btn btn btn-outline-primary" data-filter="1month">1 Month</button>
-                <button class="filter-btn btn btn-outline-primary" data-filter="3months">3 Months</button>
-                <button class="filter-btn btn btn-outline-primary" data-filter="6months">6 Months</button>
+                <button class="filter-btn btn  active" data-filter="all">All Courses</button>
+                <button class="filter-btn btn" data-filter="1month">1 Month</button>
+                <button class="filter-btn btn" data-filter="3months">3 Months</button>
+                <button class="filter-btn btn " data-filter="6months">6 Months</button>
             </div>
         </div>
 
