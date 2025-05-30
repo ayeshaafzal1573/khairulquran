@@ -3,9 +3,8 @@ require_once '../../includes/config.php';
 require_once '../../includes/auth.php';
 requireAdmin();
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header('Location: manage_students.php');
-    exit;
+if (!session_status()) {
+    header("Locaton: login.php");
 }
 
 $studentId = $_GET['id'];

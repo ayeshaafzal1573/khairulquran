@@ -135,8 +135,6 @@
     line-height: 1.6;
   }
 
-
-
   .timeline {
     position: relative;
     max-width: 1200px;
@@ -228,7 +226,7 @@
   /* Teachers Section */
   .teachers-section {
     padding: 100px 0;
-    background-color: #fff;
+    background-color: #f9f9f9;
   }
 
   .teacher-card {
@@ -238,18 +236,32 @@
     margin-bottom: 30px;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
   }
 
   .teacher-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   }
-.teacher-img img{
-  position: relative;
-  overflow: hidden;
-  height: 300px;
-  width: 100%;
-}
+
+  .teacher-img {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    width: 100%;
+    object-fit: contain!important ;
+  }
+
+  .teacher-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .teacher-card:hover .teacher-img img {
+    transform: scale(1.1);
+  }
 
   .teacher-info {
     padding: 20px;
@@ -261,6 +273,9 @@
     font-weight: 600;
     margin-bottom: 5px;
     color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .teacher-info span {
@@ -268,14 +283,19 @@
     color: #ff9800;
     font-weight: 500;
     margin-bottom: 10px;
+    font-size: 0.9rem;
   }
 
   .teacher-info p {
     color: #7f8c8d;
     font-size: 0.9rem;
     margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 60px;
   }
-
 
   .testimonials-slider {
     max-width: 1000px;
@@ -370,10 +390,56 @@
   .explore {
     background-color: #473d32;
     color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid #473d32;
   }
 
-  .teacher-img {
-    height: 250px;
+  .explore:hover {
+    background-color: transparent;
+    color: #473d32;
+  }
+
+  @media (max-width: 768px) {
+    .about-hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .about-hero p {
+      font-size: 1rem;
+    }
+    
+    .teacher-card {
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .timeline-item {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 25px;
+    }
+    
+    .timeline-item::after {
+      left: 18px;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 0;
+    }
+    
+    .timeline::after {
+      left: 31px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-year,
+    .timeline-item:nth-child(even) .timeline-year {
+      left: 0;
+      right: auto;
+    }
   }
 </style>
 
@@ -406,7 +472,7 @@
       <h2>Divine Inspiration, Modern Education</h2>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 mb-4">
         <div class="mission-card">
           <div class="icon-box">
             <i class="fas fa-book-quran"></i>
@@ -415,7 +481,7 @@
           <p>To provide authentic Quranic education through innovative online platforms, making quality Islamic learning accessible to students worldwide while preserving traditional teaching methods.</p>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mb-4">
         <div class="mission-card">
           <div class="icon-box">
             <i class="fas fa-eye"></i>
@@ -429,7 +495,7 @@
 </section>
 
 <!-- Timeline Section -->
-<section class="timeline-section">
+<section class="timeline-section bg-light py-5">
   <div class="container">
     <div class="section-header">
       <span>Our Journey</span>
@@ -479,34 +545,32 @@
     <div class="row">
 
       <?php
-
-      $Sel = "SELECT * FROM `teachers`";
+      $Sel = "SELECT * FROM `teachers` LIMIT 8";
       $stmt = $db->query($Sel);
-      $courses = $stmt->fetchAll();
+      $teachers = $stmt->fetchAll();
       ?>
 
-      <?php foreach ($courses as $course): ?>
-        <div class="col-lg-3 col-md-4 col-4" data-aos="zoom-in">
+      <?php foreach ($teachers as $teacher): ?>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in">
           <div class="teacher-card">
             <div class="teacher-img">
-              <img src="uploads/teachers/<?= $course['profile_image']; ?>" alt="Teacher <?= htmlspecialchars($course['full_name']) ?>">
+              <img src="uploads/teachers/<?= $teacher['profile_image']; ?>" alt="<?= htmlspecialchars($teacher['full_name']) ?>" class="img-fluid">
             </div>
             <div class="teacher-info">
-              <h3><?= htmlspecialchars($course['full_name']) ?></h3>
-              <span><?= htmlspecialchars($course['specialization']) ?></span>
-              <p><?= htmlspecialchars($course['qualifications']) ?></p>
+              <h3 title="<?= htmlspecialchars($teacher['full_name']) ?>"><?= htmlspecialchars($teacher['full_name']) ?></h3>
+              <span><?= htmlspecialchars($teacher['specialization']) ?></span>
+              <p><?= htmlspecialchars($teacher['qualifications']) ?></p>
             </div>
           </div>
         </div>
       <?php endforeach; ?>
 
-    
     </div>
   </div>
 </section>
 
 <!-- Testimonials Section -->
-<section class="testimonials-section">
+<section class="testimonials-section bg-light py-5">
   <div class="container">
     <div class="section-header">
       <span>Voices of</span>
@@ -520,7 +584,7 @@
           </div>
           <p>My children have flourished under the guidance of Khairul Quran Academy. The teachers are patient, knowledgeable, and truly care about their students' progress in both Quran recitation and Islamic values.</p>
           <div class="student-info">
-            <img src="assets/images/s1.jfif" alt="Parent">
+            <img src="assets/images/child 3.jpg" alt="Parent">
             <div>
               <h4>Sarah Johnson</h4>
               <span>Parent, USA</span>
@@ -535,7 +599,7 @@
           </div>
           <p>As a working professional, the flexible schedule has allowed me to continue my Quran memorization. The teaching methods are excellent, and I've progressed more in 6 months here than in 2 years elsewhere.</p>
           <div class="student-info">
-            <img src="assets/images/s2.jfif" alt="Student">
+            <img src="assets/images/child1.jpg" alt="Student">
             <div>
               <h4>Abdullah Mohammed</h4>
               <span>Hifz Student, UK</span>
@@ -550,9 +614,9 @@
           </div>
           <p>The Tajweed course transformed my Quran recitation. The teachers have exceptional knowledge and explain complex rules in simple ways. I'm now leading prayers in my local masjid with confidence.</p>
           <div class="student-info">
-            <img src="assets/images/s3.jfif" alt="Student">
+            <img src="assets/images/child4.jpg" alt="Student">
             <div>
-              <h4>Amina Yusuf</h4>
+              <h4>Meez khan</h4>
               <span>Tajweed Student, Canada</span>
             </div>
           </div>
@@ -569,34 +633,35 @@
       <div class="col-md-3 col-sm-6" data-aos="fade-up">
         <div class="stat-item">
           <i class="fas fa-users"></i>
-          <h3><span class="counter" data-target="2000">0</span></h3>
+          <h3><span class="counter" data-target="2000">0</span>+</h3>
           <p>Students Enrolled</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="100">
         <div class="stat-item">
           <i class="fas fa-chalkboard-teacher"></i>
-          <h3><span class="counter" data-target="50">0</span></h3>
+          <h3><span class="counter" data-target="50">0</span>+</h3>
           <p>Certified Teachers</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="200">
         <div class="stat-item">
           <i class="fas fa-globe"></i>
-          <h3><span class="counter" data-target="25">0</span></h3>
+          <h3><span class="counter" data-target="25">0</span>+</h3>
           <p>Countries Reached</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="300">
         <div class="stat-item">
           <i class="fas fa-book-quran"></i>
-          <h3><span class="counter" data-target="150">0</span></h3>
+          <h3><span class="counter" data-target="150">0</span>+</h3>
           <p>Huffaz Graduated</p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS animation library
@@ -619,8 +684,6 @@
         if (count < target) {
           counter.innerText = Math.ceil(count + increment);
           setTimeout(animateCounters, 1);
-        } else {
-          counter.innerText = target + '+';
         }
       });
     }
@@ -676,6 +739,5 @@
     });
   });
 </script>
-
 
 <?php include './includes/footer.php'; ?>

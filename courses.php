@@ -657,7 +657,7 @@ require_once './includes/auth.php';
                                     </div>
 
                                     <div class="enroll-section">
-                                            <a id="enrollBtn" href="#" class="enroll-btn">
+                                            <a id="enrollBtn" href="/khairulquran/register.php" class="enroll-btn">
                                                 Enroll Now <i class="fas fa-arrow-right ms-2"></i>
                                             </a>
                                     </div>

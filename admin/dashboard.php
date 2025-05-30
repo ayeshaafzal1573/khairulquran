@@ -4,11 +4,9 @@ require_once '../includes/config.php';
 require_once '../includes/auth.php';
 
 // Check admin authentication
-if (!isAdmin()) {
-    header('Location: ../login.php');
-    exit;
+if (!session_status()) {
+    header("Locaton: login.php");
 }
-
 $totalStudents = $db->query("SELECT COUNT(*) FROM students")->fetchColumn();
 $totalTeachers = $db->query("SELECT COUNT(*) FROM teachers")->fetchColumn();
 $totalCourses = $db->query("SELECT COUNT(*) FROM courses")->fetchColumn();

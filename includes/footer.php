@@ -43,16 +43,15 @@
         </ul>
       </div>
 
-      <!-- Contact Info -->
-      <div class="col-md-3 mb-4">
-        <h3>Contact Us</h3>
-        <ul class="list-unstyled contact-info">
-          <li><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</li>
-          <li><i class="fas fa-phone-alt"></i> +20 123 456 7890</li>
-          <li><i class="fas fa-envelope"></i> info@muslimequran.com</li>
-        </ul>
-      </div>
-    </div>
+    <!-- Contact Info -->
+<div class="col-md-3 mb-4">
+  <h3>Contact Us</h3>
+  <ul class="list-unstyled contact-info">
+    <li><i class="fas fa-map-marker-alt"></i> Karachi, Pakistan</li>
+    <li><i class="fas fa-phone-alt"></i> <a href="tel:+923140119953">+92 314 0119953</a></li>
+    <li><i class="fas fa-envelope"></i> <a href="mailto:khairulquranonline@gmail.com">khairulquranonline@gmail.com</a></li>
+  </ul>
+</div>
 
     <div class="footer-bottom border-top border-light pt-3 mt-4 text-center">
       <p class="mb-1">&copy; 2025 Khair ul Quran. All Rights Reserved.</p>
