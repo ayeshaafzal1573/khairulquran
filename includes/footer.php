@@ -13,9 +13,9 @@
         </div>
         <p>Khair ul Quran Academy provides online Quran classes for kids and adults with qualified Quran teachers from Egypt.</p>
         <div class="social-links d-flex justify-content-center justify-content-md-start mt-3">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=61574404247868"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/khairulquranonline/"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@KhairulQuranOnline"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
 
