@@ -102,14 +102,14 @@
                             let redirectUrl = '';
                             switch (data.role) {
                                 case 'admin':
-                                    redirectUrl = '/khairulquran/admin/dashboard.php';
+                                    redirectUrl = '/admin/dashboard.php';
                                     break;
                                 case 'teacher':
-                                    redirectUrl = '/khairulquran/teacher/dashboard.php';
+                                    redirectUrl = '/teacher/dashboard.php';
                                     break;
                                 case 'student':
                                 default:
-                                    redirectUrl = '/khairulquran/index.php';
+                                    redirectUrl = '/index.php';
                                     break;
                             }
                             window.history.replaceState(null, null, redirectUrl);
