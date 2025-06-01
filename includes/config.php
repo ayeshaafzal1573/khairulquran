@@ -1,13 +1,13 @@
 <?php
 // Database Configuration
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'khairulkhan_academy');
+define('DB_USER', 'khaiwxmh_khairulq');
+define('DB_PASS', 'Q2WUfXXUN%CX');
+define('DB_NAME', 'khaiwxmh_khairulquran');
 
 // Site Configuration
 define('SITE_NAME', 'Khair-ul-Quran Academy');
-define('SITE_URL', 'http://localhost/Khair-ul-Quran-academy');
+define('SITE_URL', 'https://khairulquran.com');
 
 // Start session ONLY if not already started
 if (session_status() === PHP_SESSION_NONE) {
