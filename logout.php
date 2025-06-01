@@ -1,8 +1,16 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Unset all session variables
 $_SESSION = array();
+
+// Set logout alert
+$_SESSION['alert'] = [
+    'type' => 'success',
+    'message' => 'You have been logged out successfully.'
+];
 
 // Destroy the session
 session_destroy();

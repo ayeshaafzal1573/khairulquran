@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </nav>
             <main class="col-md-10 ms-sm-auto p-4">
 
+    <?php displayAlert(); ?>
                 <div>
                     <div class="card">
                         <div class="card-header">
@@ -176,7 +177,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </main>
         </div>
     </div>
-
+<script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 
 </html>

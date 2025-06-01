@@ -63,6 +63,7 @@ if (isset($_POST['reorder'])) {
     </nav>
         <main class="col-md-10 ms-sm-auto p-4">
 
+    <?php displayAlert(); ?>
             <div >
                 <?php if (isset($_SESSION['message'])): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -157,5 +158,16 @@ if (isset($_POST['reorder'])) {
             $(".sortable").disableSelection();
         });
     </script>
+    <script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 </html>

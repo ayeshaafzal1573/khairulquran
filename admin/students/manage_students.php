@@ -37,6 +37,8 @@ if (isset($_GET['toggle_status']) && is_numeric($_GET['toggle_status'])) {
       <?php include '../includes/sidebar.php'; ?>
     </nav>
         <main class="col-md-10 ms-sm-auto p-4">
+            
+    <?php displayAlert(); ?>
                 <?php if (isset($_SESSION['message'])): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= $_SESSION['message'] ?>
@@ -100,6 +102,16 @@ if (isset($_GET['toggle_status']) && is_numeric($_GET['toggle_status'])) {
                                     </main>
         </div>
     </div>
-
+<script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 </html>

@@ -1,12 +1,9 @@
 <?php
-session_start();
 require_once '../includes/config.php';
 require_once '../includes/auth.php';
 
-// Check admin authentication
-if (!session_status()) {
-    header("Locaton: login.php");
-}
+
+requireAdmin();
 $totalStudents = $db->query("SELECT COUNT(*) FROM students")->fetchColumn();
 $totalTeachers = $db->query("SELECT COUNT(*) FROM teachers")->fetchColumn();
 $totalCourses = $db->query("SELECT COUNT(*) FROM courses")->fetchColumn();
@@ -19,12 +16,12 @@ $recentEnrollments = $db->query("SELECT e.enrollment_id, s.full_name, c.title
 
 <div class="container-fluid">
     <div class="row">
-
         <nav class="col-md-2 d-none d-md-block p-0 bg-dark sidebar" id="sidebar">
             <?php include 'includes/sidebar.php'; ?>
         </nav>
         <main class="col-md-10 col-12 ms-sm-auto px-4">
 
+<?php displayAlert(); ?>
             <div class="row py-4">
                 <div class="col-md-4 mb-4">
                     <div class="card bg-primary text-white">
@@ -104,3 +101,15 @@ $recentEnrollments = $db->query("SELECT e.enrollment_id, s.full_name, c.title
     </div>
 </div>
 </div>
+
+<script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>

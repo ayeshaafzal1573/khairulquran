@@ -1,12 +1,9 @@
 <?php
-session_start();
 require_once '../../includes/config.php';
 require_once '../../includes/auth.php';
 
-if (!isAdmin()) {
-    header('Location: ../../login.php');
-    exit;
-}
+
+requireAdmin();
 
 // Handle course deletion
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
@@ -34,8 +31,7 @@ $courses = $db->query("SELECT c.*, t.full_name AS teacher_name
     </nav>
         <main class="col-md-10 ms-sm-auto p-4">
 
-
-                <!-- Success Message -->
+    <?php displayAlert(); ?>
                 <?php if (isset($_SESSION['message'])): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= $_SESSION['message'] ?>

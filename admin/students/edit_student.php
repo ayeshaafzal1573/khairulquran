@@ -85,6 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php include '../includes/sidebar.php'; ?>
     </nav>
         <main class="col-md-10 ms-sm-auto p-4">
+            
+    <?php displayAlert(); ?>
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Edit Student: <?= htmlspecialchars($student['full_name']) ?></h5>
@@ -173,5 +175,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </main>
         </div>
     </div>
+    <script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 </html>

@@ -57,6 +57,8 @@ $courses = $stmt->fetchAll();
       <?php include '../includes/sidebar.php'; ?>
     </nav>
         <main class="col-md-10 ms-sm-auto p-4">
+            
+        <?php displayAlert(); ?>
             <div>
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -181,6 +183,16 @@ $courses = $stmt->fetchAll();
                                     </main>
         </div>
     </div>
-
+<script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 </html>

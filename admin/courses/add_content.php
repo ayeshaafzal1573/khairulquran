@@ -93,6 +93,7 @@ $nextSequence = $sequenceStmt->fetchColumn() + 1;
     </nav>
         <main class="col-md-10 ms-sm-auto p-4">
 
+    <?php displayAlert(); ?>
             <div >
                 <div class="card">
                     <div class="card-header">
@@ -155,5 +156,16 @@ $nextSequence = $sequenceStmt->fetchColumn() + 1;
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 </html>

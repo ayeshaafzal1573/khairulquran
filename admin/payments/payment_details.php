@@ -168,6 +168,16 @@ if (isset($_GET['update_status']) && in_array($_GET['update_status'], ['paid', '
                 </main>
         </div>
     </div>
-
+<script>
+    window.onload = function () {
+    fetch('/khairulquran/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn || data.role !== 'admin') { 
+                window.location.href = '/khairulquran/login.php';
+            }
+        });
+};
+</script>
 </body>
 </html>
