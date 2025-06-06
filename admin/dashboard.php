@@ -14,15 +14,212 @@ $recentEnrollments = $db->query("SELECT e.enrollment_id, s.full_name, c.title
                                 ORDER BY e.enrollment_date DESC LIMIT 5")->fetchAll();
 ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block p-0 bg-dark sidebar" id="sidebar">
-            <?php include 'includes/sidebar.php'; ?>
-        </nav>
-        <main class="col-md-10 col-12 ms-sm-auto px-4">
 
-<?php displayAlert(); ?>
-            <div class="row py-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Sidebar</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    .sidebar {
+      min-height: 100vh;
+  background:  #473d32;
+      color: white;
+      position: fixed;
+      width: 230px;
+      transition: all 0.3s;
+      z-index: 1000;
+      left: 0;
+    }
+    
+    .sidebar .nav-link {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 5px;
+      border-radius: 5px;
+      padding: 10px 15px;
+      white-space: nowrap;
+    }
+    
+    .sidebar .nav-link:hover, 
+    .sidebar .nav-link.active {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar .nav-link i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .btn {
+      background-color: #f59e0b;
+      border: none;
+    }
+    
+    .sidebar-toggle-btn {
+      background-color: #f59e0b;
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      z-index: 1100;
+      display: none;
+    }
+    
+    .main-content {
+      margin-left: 220px;
+      padding: 10px;
+      transition: all 0.3s;
+      padding-bottom:60px;
+    }
+    
+    /* Mobile navbar styles */
+    .mobile-navbar {
+      display: none;
+       background:  #473d32;
+      padding: 5px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    
+    .mobile-navbar .nav-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      font-size: 12px;
+    }
+    
+    .mobile-navbar .nav-link i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -250px;
+      }
+      
+      .sidebar.active {
+        left: 0;
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .sidebar-toggle-btn {
+        display: none;
+      }
+      
+      .mobile-navbar {
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 992px) {
+      .sidebar {
+        width: 220px;
+      }
+      
+      .main-content {
+        margin-left: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar Toggle Button -->
+<button class="btn sidebar-toggle-btn" id="sidebarToggle">
+  <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar -->
+<div id="sidebar" class="d-flex flex-column p-3 text-white sidebar">
+  <!-- Sidebar Navigation -->
+  <ul class="nav flex-column">  
+    <li class="nav-item">
+      <a class="nav-link" href="/khairulquran/admin/dashboard.php">
+        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/khairulquran/admin/courses/manage_courses.php">
+        <i class="bi bi-book"></i> <span>Courses</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/khairulquran/admin/students/manage_students.php">
+        <i class="bi bi-people"></i> <span>Students</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/khairulquran/admin/teachers/manage_teachers.php">
+        <i class="bi bi-person-badge"></i> <span>Teachers</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/khairulquran/admin/enrollments/manage_enrollments.php">
+        <i class="bi bi-clipboard-check"></i> <span>Enrollments</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Logout Button -->
+  <div class="mt-auto">
+    <form action="/khairulquran/admin/logout.php" method="POST">
+      <button type="submit" class="btn w-100 mt-3">
+        <i class="fas fa-power-off"></i> <span>Logout</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Mobile Navbar (shown on small screens) -->
+<div class="mobile-navbar d-lg-none">
+  <a class="nav-link" href="/khairulquran/admin/dashboard.php">
+    <i class="bi bi-speedometer2"></i>
+    <span>Dashboard</span>
+  </a>
+  <a class="nav-link" href="/khairulquran/admin/courses/manage_courses.php">
+    <i class="bi bi-book"></i>
+    <span>Courses</span>
+  </a>
+  <a class="nav-link" href="/khairulquran/admin/students/manage_students.php">
+    <i class="bi bi-people"></i>
+    <span>Students</span>
+  </a>
+  <a class="nav-link" href="/khairulquran/admin/teachers/manage_teachers.php">
+    <i class="bi bi-person-badge"></i>
+    <span>Teachers</span>
+  </a>
+</div>
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="mt-2">Welcome Admin</h2>
+        <br>
+        <?php displayAlert(); ?>
+          <?php include './includes/loader.php'; ?>  
+         <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="card bg-primary text-white">
                         <div class="card-body">
@@ -63,8 +260,7 @@ $recentEnrollments = $db->query("SELECT e.enrollment_id, s.full_name, c.title
                     </div>
                 </div>
             </div>
-
-            <!-- Recent Enrollments Table -->
+  <!-- Recent Enrollments Table -->
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Recent Enrollments</h5>
@@ -98,12 +294,33 @@ $recentEnrollments = $db->query("SELECT e.enrollment_id, s.full_name, c.title
                     </div>
                 </div>
             </div>
+      </div>
     </div>
-</div>
-</div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    window.onload = function () {
+  // Toggle sidebar on button click
+  document.getElementById('sidebarToggle').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('active');
+  });
+  
+  // Close sidebar when clicking outside on mobile
+  document.addEventListener('click', function(event) {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    
+    if (window.innerWidth <= 768 && 
+        !sidebar.contains(event.target) && 
+        event.target !== sidebarToggle && 
+        !sidebarToggle.contains(event.target)) {
+      sidebar.classList.remove('active');
+    }
+  });
+  window.onload = function () {
     fetch('/khairulquran/check_session.php')
         .then(response => response.json())
         .then(data => {
@@ -113,3 +330,6 @@ $recentEnrollments = $db->query("SELECT e.enrollment_id, s.full_name, c.title
         });
 };
 </script>
+
+</body>
+</html>
