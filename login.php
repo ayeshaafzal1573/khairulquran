@@ -16,23 +16,6 @@
         session_start();
     }
 
-    // Redirect if already logged in
-    if (isLoggedIn()) {
-        switch ($_SESSION['role']) {
-            case 'admin':
-                header('Location: /khairulquran/admin/dashboard.php');
-                exit;
-            case 'teacher':
-                header('Location: /khairulquran/teacher/dashboard.php');
-                exit;
-            case 'student':
-                header('Location: /khairulquran/index/php');
-                exit;
-            default:
-                header('Location: /khairulquran/index.php');
-                exit;
-        }
-    }
 
     $error = '';
 
@@ -47,32 +30,47 @@
                 $stmt = $db->prepare("SELECT * FROM users WHERE username = ? OR email = ? LIMIT 1");
                 $stmt->execute([$username, $username]);
                 $user = $stmt->fetch();
+if ($user && password_verify($password, $user['password'])) {
+    session_regenerate_id(true);
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['user_id'] = $user['user_id'];
+    $_SESSION['role'] = $user['role'];
 
-                if ($user && password_verify($password, $user['password'])) {
-                    // Regenerate session ID for security
-                    session_regenerate_id(true);
+    // ✅ If role is student, fetch student_id
+    if (strtolower($user['role']) === 'student') {
+        $studentStmt = $db->prepare("SELECT student_id FROM students WHERE user_id = ?");
+        $studentStmt->execute([$user['user_id']]);
+        $student = $studentStmt->fetch();
 
-                    // Set session variables
-                    $_SESSION['user_id'] = $user['user_id'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['role'] = $user['role'];
+        if ($student) {
+            $_SESSION['student_id'] = $student['student_id'];
+        } else {
+            $_SESSION['student_id'] = null; // Optional fallback
+        }
+    }
 
-                    // Redirect based on role
-                    switch ($user['role']) {
-                        case 'admin':
-                            header('Location: /khairulquran/admin/dashboard.php');
-                            exit;
-                        case 'teacher':
-                            header('Location: /khairulquran/teacher/dashboard.php');
-                            exit;
-                        case 'student':
-                            header('Location: /khairulquran/index.php');
-                            exit;
-                        default:
-                            header('Location: /khairulquran/index.php');
-                            exit;
-                    }
-                } else {
+    // Redirect based on role
+    if (isLoggedIn()) {
+        $role = $_SESSION['role'] ?? '';
+        switch (strtolower($role)) {
+            case 'admin':
+                header('Location: /khairulquran/admin/dashboard.php');
+                exit;
+            case 'teacher':
+                header('Location: /khairulquran/teacher/dashboard.php');
+                exit;
+            case 'student':
+                header('Location: /khairulquran/index.php');
+                exit;
+            default:
+                header('Location: /khairulquran/login.php');
+                exit;
+        }
+    }
+}
+
+
+                else {
                     $error = 'Invalid username or password';
                 }
             } catch (Exception $e) {
@@ -221,13 +219,18 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
     </html><script>
-    document.querySelector("form").addEventListener("submit", function () {
-        const btn = document.getElementById("loginBtn");
-        const text = document.getElementById("btnText");
-        const spinner = document.getElementById("btnSpinner");
+  let submitted = false;
+document.querySelector("form").addEventListener("submit", function (e) {
+    if (submitted) e.preventDefault();
+    submitted = true;
 
-        btn.disabled = true;
-        text.textContent = "Logging in...";
-        spinner.classList.remove("d-none");
-    });
+    const btn = document.getElementById("loginBtn");
+    const text = document.getElementById("btnText");
+    const spinner = document.getElementById("btnSpinner");
+
+    btn.disabled = true;
+    text.textContent = "Logging in...";
+    spinner.classList.remove("d-none");
+});
+
 </script>

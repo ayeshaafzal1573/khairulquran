@@ -4,15 +4,25 @@ ob_start();
 session_start();
 require_once './includes/config.php';
 require_once './includes/auth.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
-  if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
-    $_SESSION['error'] = 'Please login as a student to enroll.';
-    header('Location: register.php');
+    // Check if user is logged in at all
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['error'] = 'Please login first to enroll.';
+        header('Location: login.php'); // Redirect to login page
+        exit;
+    }
+    
+    // Check if user has student role
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
+        $_SESSION['error'] = 'Only students can enroll in courses.';
+        header('Location: dashboard.php'); // Redirect to appropriate page
+        exit;
+    }
+    
+    // If all checks pass, redirect to courses page
+    header("Location: enroll.php");
     exit;
-  } else {
-    header("Location: courses.php");
-    exit;
-  }
 }
 ?>
 <?php include './includes/header.php'; ?>
@@ -283,47 +293,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
         <!-- <h6>Teachers: <span id="teacherName"></span></h6> -->
         <div class="flex-row mt-3">
 
-          <div class="enroll-section">
-            <?php if (isLoggedIn() && isStudent()): ?>
-              <a id="enrollBtn" href="/khairulquran/register.php" class="enroll-btn text-decoration-none">Enroll Now</a>
-
-            <?php elseif (!isLoggedIn()): ?>
-              <a id="loginEnrollBtn" href="/khairulquran/register.php" class="enroll-btn text-decoration-none">Login to Enroll</a>
-            <?php else: ?>
-              <p class="text-danger">Only students can enroll</p>
-            <?php endif; ?>
-
-
-          </div>
+     <div class="enroll-section">
+    <?php if (isLoggedIn() && isStudent()): ?>
+        <form method="POST">
+            <input type="hidden" name="enroll_now" value="1">
+            <input type="hidden" name="course_id" id="modalCourseId" value="">
+            <button type="submit" class="enroll-btn" name="enroll_now">Enroll Now</button>
+        </form>
+    <?php elseif (!isLoggedIn()): ?>
+        <a href="/khairulquran/register.php" class="enroll-btn" name="enroll_now">Login to Enroll</a>
+    <?php else: ?>
+        <p class="text-danger">Only students can enroll</p>
+    <?php endif; ?>
+</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+ document.addEventListener("DOMContentLoaded", () => {
     const courseCards = document.querySelectorAll(".course-card");
     const modal = document.getElementById("courseModal");
     const closeButton = modal.querySelector(".arbaz-button");
+    const courseIdInput = document.getElementById("modalCourseId");
 
     courseCards.forEach((card) => {
-    console.log(card)
-      card.addEventListener("click", () => {
-        const title = card.getAttribute("data-title");
-        const image = card.getAttribute("data-image");
-        const description = card.getAttribute("data-description");
-        const teacherName = card.getAttribute("data-teachername");
+        card.addEventListener("click", () => {
+            const courseId = card.getAttribute("data-course-id");
+            const title = card.getAttribute("data-title");
+            const image = card.getAttribute("data-image");
+            const description = card.getAttribute("data-description");
 
-        // Set modal content
-        document.getElementById("courseTitle").innerText = title;
-        document.getElementById("courseImage").src = image;
-        document.getElementById("courseDescription").innerText = description;
-        // document.getElementById("teacherName").innerText = teacherName;
+            // Set modal content
+            document.getElementById("courseTitle").innerText = title;
+            document.getElementById("courseImage").src = image;
+            document.getElementById("courseDescription").innerText = description;
+            courseIdInput.value = courseId; // Set the course ID in the form
 
-        console.log("Teacher Name:", teacherName);
-        // Show modal
-        modal.style.display = "block";
-      });
+            // Show modal
+            modal.style.display = "block";
+        });
     });
 
     // Close modal

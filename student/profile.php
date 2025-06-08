@@ -37,10 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate inputs
     if (empty($full_name)) {
         $error = "Full name is required.";
-    } elseif (!preg_match('/^[0-9]{10,15}$/', $contact_number) && !empty($contact_number)) {
-        $error = "Contact number must be 10-15 digits.";
-    } elseif (!preg_match('/^[0-9]{10,15}$/', $parent_contact) && !empty($parent_contact)) {
-        $error = "Parent contact must be 10-15 digits.";
     } else {
         // Image upload handling
         $profile_image_to_save = $student['profile_image']; // Default to existing image
@@ -132,99 +128,17 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
     <title>Edit Profile - Student Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .sidebar {
-            min-height: 100vh;
-            background: linear-gradient(180deg, #4e73df 0%, #224abe 100%);
-            color: white;
-        }
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 5px;
-        }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .sidebar .nav-link i {
-            margin-right: 10px;
-        }
-        .user-profile {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .user-profile img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-        }
-        .profile-image-preview {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #dee2e6;
-            margin-bottom: 15px;
-        }
-        .form-section {
-            background-color: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-        }
-    </style>
 </head>
 <body>
+       <?php include './includes/sidebar.php'; ?>
+    <div class="main-content">
+        
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 col-lg-2 d-md-block sidebar collapse p-0">
-            <div class="user-profile">
-                <?php if ($student['profile_image']): ?>
-                    <img src="../uploads/<?= htmlspecialchars($student['profile_image']) ?>" alt="Profile">
-                <?php else: ?>
-                    <img src="../assets/default-profile.jpg" alt="Profile">
-                <?php endif; ?>
-                <h5><?= htmlspecialchars($student['full_name']) ?></h5>
-                <small><?= htmlspecialchars($student['email']) ?></small>
-            </div>
-            <div class="sidebar-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="student_dashboard.php">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="my-courses.php">
-                            <i class="bi bi-book"></i> My Courses <span class="badge bg-light text-dark ms-2"><?= $enrolled_count ?></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="profile.php">
-                            <i class="bi bi-person"></i> Profile
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item mt-3">
-                        <a class="nav-link text-danger" href="logout.php">
-                            <i class="bi bi-box-arrow-right"></i> Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
+      
         <!-- Main Content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <main class="col-12 p-3">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                 <h1 class="h2">Edit Profile</h1>
                 
             </div>
@@ -247,7 +161,7 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
                 <div class="col-lg-12">
                     <div class="form-section">
                         <form method="POST" enctype="multipart/form-data" id="profileForm">
-                            <div class="row mb-4">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
@@ -271,7 +185,7 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
                             </div>
 
                             <h5 class="mb-3">Parent/Guardian Information</h5>
-                            <div class="row mb-4">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="parent_name" class="form-label">Parent/Guardian Name</label>
@@ -289,7 +203,7 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
                                 </div>
                             </div>
 
-                            <div class="mb-4">
+                            <div>
                                 <label for="previous_education" class="form-label">Previous Education</label>
                                 <textarea name="previous_education" class="form-control" rows="3"><?= htmlspecialchars($student['previous_education']); ?></textarea>
                             </div>
@@ -302,7 +216,7 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
                                             <img src="../uploads/profiles/<?= htmlspecialchars($student['profile_image']) ?>" 
                                                  alt="Current Profile" class="profile-image-preview" id="imagePreview">
                                         <?php else: ?>
-                                            <img src="../assets/default-profile.jpg" 
+                                            <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" 
                                                  alt="Default Profile" class="profile-image-preview" id="imagePreview">
                                         <?php endif; ?>
                                     </div>
@@ -334,6 +248,7 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
     </div>
 </div>
 
+    </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Image preview functionality
@@ -348,25 +263,30 @@ $enrolled_count = $enrolled_stmt->fetchColumn();
         }
     });
 
-    // Form validation
-    document.getElementById('profileForm').addEventListener('submit', function(event) {
-        const contactNumber = document.querySelector('input[name="contact_number"]').value;
-        const parentContact = document.querySelector('input[name="parent_contact"]').value;
+    // // Form validation
+    // document.getElementById('profileForm').addEventListener('submit', function(event) {
+    //     const contactNumber = document.querySelector('input[name="contact_number"]').value;
+    //     const parentContact = document.querySelector('input[name="parent_contact"]').value;
         
-        if (contactNumber && !/^[0-9]{10,15}$/.test(contactNumber)) {
-            alert('Contact number must be 10-15 digits.');
-            event.preventDefault();
-            return false;
-        }
+    //     if (contactNumber && !/^[0-9]{10,15}$/.test(contactNumber)) {
+    //         alert('Contact number must be 10-15 digits.');
+    //         event.preventDefault();
+    //         return false;
+    //     }
         
-        if (parentContact && !/^[0-9]{10,15}$/.test(parentContact)) {
-            alert('Parent contact must be 10-15 digits.');
-            event.preventDefault();
-            return false;
-        }
+    //     if (parentContact && !/^[0-9]{10,15}$/.test(parentContact)) {
+    //         alert('Parent contact must be 10-15 digits.');
+    //         event.preventDefault();
+    //         return false;
+    //     }
         
-        return true;
-    });
+    //     return true;
+    // });
 </script>
 </body>
 </html>
+
+
+
+
+
