@@ -1,4 +1,9 @@
-<?php include './includes/header.php'; ?>
+<?php 
+ob_start();
+session_start();
+include './includes/header.php'; 
+
+?>
 <?php
 require_once './includes/config.php';
 require_once './includes/auth.php';
@@ -721,3 +726,9 @@ require_once './includes/auth.php';
 </section>
 
 <?php include './includes/footer.php'; ?>
+
+
+<?php
+
+ob_end_flush();
+?>

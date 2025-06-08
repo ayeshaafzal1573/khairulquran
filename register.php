@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once 'includes/config.php';
 require_once 'includes/auth.php';
 
@@ -281,3 +282,9 @@ color:#ff9800;
     </script>
 </body>
 </html>
+
+
+<?php
+
+ob_end_flush();
+?>

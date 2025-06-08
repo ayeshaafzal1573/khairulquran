@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 require_once 'includes/header.php';
 require_once 'includes/auth.php';
 require_once 'includes/config.php';
@@ -128,3 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <?php require_once 'includes/footer.php'; ?>
+
+<?php
+
+ob_end_flush();
+?>

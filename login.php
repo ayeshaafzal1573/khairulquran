@@ -26,7 +26,7 @@
                 header('Location: /khairulquran/teacher/dashboard.php');
                 exit;
             case 'student':
-                header('Location: /khairulquran/index.php');
+                header('Location: /khairulquran/index/php');
                 exit;
             default:
                 header('Location: /khairulquran/index.php');

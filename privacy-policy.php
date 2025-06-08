@@ -1,4 +1,7 @@
-<?php include './includes/header.php'; ?>
+<?php 
+ob_start();
+session_start();
+include './includes/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -240,3 +243,10 @@
   <?php include './includes/footer.php'; ?>
 </body>
 </html>
+
+
+
+<?php
+
+ob_end_flush();
+?>

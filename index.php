@@ -1,4 +1,7 @@
 <?php
+
+ob_start();
+session_start();
 require_once './includes/config.php';
 require_once './includes/auth.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
@@ -11,8 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
     exit;
   }
 }
-session_unset();
-session_destroy();
 ?>
 <?php include './includes/header.php'; ?>
 <style>
@@ -166,7 +167,7 @@ session_destroy();
   <div class="row">
     <div class="col-5 mt-5" data-aos="fade-left">
       <div class="intro-img">
-        <img src="assets/images/child2.jpg" alt="Child Learning Quran" class="img-fluid" />
+        <img src="assets/images/child.jpg" alt="Child Learning Quran" class="img-fluid" />
       </div>
     </div>
     <div class="col-7" data-aos="fade-right">
@@ -195,49 +196,53 @@ session_destroy();
 </div>
 <!-- Courses Section -->
 <section class="courses" id="courses" data-aos="flip-left">
-  <h3>Our Courses</h3>
-  <div class="course-grid">
-    <?php
-$sql = "SELECT 
-    c.course_id, 
-    c.title, 
-    c.image_url, 
-    c.description, 
-    t.full_name AS teacher_name
-FROM 
-    courses c
-LEFT JOIN 
-    teachers t ON c.teacher_id = t.teacher_id
-LIMIT 6";
+  <div class="container">
+    <h3 class="text-center mb-4">Our Courses</h3>
+    <div class="row">
+      <?php
+      $sql = "SELECT 
+          c.course_id, 
+          c.title, 
+          c.image_url, 
+          c.description, 
+          t.full_name AS teacher_name
+        FROM 
+          courses c
+        LEFT JOIN 
+          teachers t ON c.teacher_id = t.teacher_id
+        LIMIT 6";
 
+      $stmt = $db->query($sql);
+      $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmt = $db->query($sql);
-    $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($courses) > 0) {
-      foreach ($courses as $course) {
-        $courseId = htmlspecialchars($course['course_id']);
-        $title = htmlspecialchars($course['title']);
-        $image = htmlspecialchars($course['image_url']);
-        $desc  = htmlspecialchars($course['description']);
-        $teacherName = htmlspecialchars($course['teacher_name'] ?? 'N/A');
-
-
-    ?>
-        <div class="course-card"
-          data-course-id="<?= $courseId ?>"
-          data-title="<?= $title ?>"
-          data-image="<?= $image ?>"
-          data-description="<?= $desc ?>"
-          data-teachername="<?= $teacherName ?>">
-          <?= $title ?>
-        </div>
-    <?php }
-    } else {
-      echo "<p>No courses available.</p>";
-    } ?>
+      if (count($courses) > 0) {
+        foreach ($courses as $course) {
+          $courseId = htmlspecialchars($course['course_id']);
+          $title = htmlspecialchars($course['title']);
+          $image = htmlspecialchars($course['image_url']);
+          $desc  = htmlspecialchars($course['description']);
+          $teacherName = htmlspecialchars($course['teacher_name'] ?? 'N/A');
+      ?>
+          <div class="col-md-4 mb-1">
+            <div class="card course-card h-100"
+              data-course-id="<?= $courseId ?>"
+              data-title="<?= $title ?>"
+              data-image="<?= $image ?>"
+              data-description="<?= $desc ?>"
+              data-teachername="<?= $teacherName ?>">
+              <div class="card-body text-center">
+                <h5 class=""><?= $title ?></h5>
+              </div>
+            </div>
+          </div>
+      <?php }
+      } else {
+        echo "<p>No courses available.</p>";
+      } ?>
+    </div>
   </div>
 </section>
+
 <script>
   const upBtn = document.querySelector('.up');
   const downBtn = document.querySelector('.down');
@@ -388,3 +393,8 @@ LIMIT 6";
 </div>
 
 <?php include './includes/footer.php'; ?>
+
+<?php
+
+ob_end_flush();
+?>

@@ -1,5 +1,6 @@
 <?php
-// Database connection (already in your config.php)
+ob_start();
+session_start();
 require_once 'includes/config.php';
 
 
@@ -203,3 +204,10 @@ include './includes/header.php';
 </div>
 
 <?php include './includes/footer.php'; ?>
+
+
+
+<?php
+
+ob_end_flush();
+?>

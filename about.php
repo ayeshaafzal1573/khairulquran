@@ -1,4 +1,9 @@
-<?php include './includes/header.php'; ?>
+<?php 
+ob_start();
+session_start();
+include './includes/header.php';
+
+?>
 <?php include './includes/config.php'; ?>
 <style>
   body {
@@ -741,3 +746,9 @@
 </script>
 
 <?php include './includes/footer.php'; ?>
+
+
+<?php
+
+ob_end_flush();
+?>

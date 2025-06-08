@@ -99,6 +99,8 @@ $totals = $totalStmt->fetch(PDO::FETCH_ASSOC);
     <title>Manage Payments - Khair-ul-Quran Academy</title>
 </head>
 <body>
+    
+<?php include '../includes/sidebar.php'; ?>
    <div class="container-fluid">
   <div class="row">
     
