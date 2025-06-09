@@ -1,12 +1,12 @@
 <?php
 // Database Configuration
 define('DB_HOST', 'localhost');
-//------------------------------------- LOCAL --------------------------------------
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// //------------------------------------- LOCAL --------------------------------------
+// define('DB_USER', 'root');
+// define('DB_PASS', '');
 //------------------------------------- PRODUCTION --------------------------------------
-// define('DB_USER', 'khaiwxmh_khairulq');
-// define('DB_PASS', 'Q2WUfXXUN%CX');
+define('DB_USER', 'khaiwxmh_khairulq');
+define('DB_PASS', 'Q2WUfXXUN%CX');
 
 
 
