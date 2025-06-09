@@ -6,24 +6,32 @@ require_once './includes/config.php';
 require_once './includes/auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
-    // Check if user is logged in at all
+    // Check if user is logged in
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['error'] = 'Please login first to enroll.';
-        header('Location: login.php'); // Redirect to login page
+        header('Location: login.php');
         exit;
     }
     
     // Check if user has student role
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
         $_SESSION['error'] = 'Only students can enroll in courses.';
-        header('Location: dashboard.php'); // Redirect to appropriate page
+        header('Location: dashboard.php');
         exit;
     }
     
-    // If all checks pass, redirect to courses page
-    header("Location: enroll.php");
+    // Check if course_id is provided
+    if (!isset($_POST['course_id']) || empty($_POST['course_id'])) {
+        $_SESSION['error'] = 'No course selected for enrollment.';
+        header('Location: courses.php');
+        exit;
+    }
+    
+    // Redirect to enroll.php with course_id
+    header("Location: enroll.php?course_id=" . $_POST['course_id']);
     exit;
 }
+    
 ?>
 <?php include './includes/header.php'; ?>
 <style>
@@ -293,15 +301,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
         <!-- <h6>Teachers: <span id="teacherName"></span></h6> -->
         <div class="flex-row mt-3">
 
-     <div class="enroll-section">
+    <div class="enroll-section">
     <?php if (isLoggedIn() && isStudent()): ?>
-        <form method="POST">
+        <form method="POST" action="">
             <input type="hidden" name="enroll_now" value="1">
             <input type="hidden" name="course_id" id="modalCourseId" value="">
-            <button type="submit" class="enroll-btn" name="enroll_now">Enroll Now</button>
+            <button type="submit" class="enroll-btn">Enroll Now</button>
         </form>
     <?php elseif (!isLoggedIn()): ?>
-        <a href="/khairulquran/register.php" class="enroll-btn" name="enroll_now">Login to Enroll</a>
+        <a href="/khairulquran/register.php" class="enroll-btn">Login to Enroll</a>
     <?php else: ?>
         <p class="text-danger">Only students can enroll</p>
     <?php endif; ?>
@@ -338,18 +346,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
 
     // Close modal
     closeButton.addEventListener("click", () => {
-      modal.style.display = "none";
-      console.log("CLOSE BUTTON TRIGGERED")
+        modal.style.display = "none";
     });
-
 
     // Close on outside click
     window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
     });
-  });
+});
+
+    
 </script>
 
 <script>

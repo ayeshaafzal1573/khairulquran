@@ -661,11 +661,11 @@ require_once './includes/auth.php';
                                         <span class="small text-muted ms-1">(42)</span>
                                     </div>
 
-                                    <div class="enroll-section">
-                                            <a id="enrollBtn" href="/khairulquran/register.php" class="enroll-btn">
-                                                Enroll Now <i class="fas fa-arrow-right ms-2"></i>
-                                            </a>
-                                    </div>
+                                  <div class="enroll-section">
+    <a href="enroll.php?course_id=<?= $course['course_id'] ?>" class="enroll-btn">
+        Enroll Now <i class="fas fa-arrow-right ms-2"></i>
+    </a>
+</div>
                                 </div>
                             </div>
                         </div>
