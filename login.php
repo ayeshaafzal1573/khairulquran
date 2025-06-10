@@ -1,9 +1,8 @@
     <?php
     // Prevent caching
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
-
+   header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
     // Start output buffering
     ob_start();
 
@@ -16,7 +15,21 @@
         session_start();
     }
 
-
+// ✅ Redirect if already logged in
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
+    switch (strtolower($_SESSION['role'])) {
+        case 'admin':
+            header('Location: /khairulquran/admin/dashboard.php');
+            exit;
+        case 'teacher':
+            header('Location: /khairulquran/teacher/dashboard.php');
+            exit;
+        case 'student':
+        default:
+            header('Location: /khairulquran/index.php');
+            exit;
+    }
+}
     $error = '';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
