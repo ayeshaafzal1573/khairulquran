@@ -306,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
             <button type="submit" class="enroll-btn">Enroll Now</button>
           </form>
         <?php elseif (!isLoggedIn()): ?>
-          <a href="/khairulquran/register.php" class="enroll-btn">Login to Enroll</a>
+          <a href="/register.php" class="enroll-btn">Login to Enroll</a>
         <?php else: ?>
           <p class="text-danger">Only students can enroll</p>
         <?php endif; ?>
