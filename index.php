@@ -161,10 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
             Through <strong>Khairul Quran Academy</strong> live sessions, your child will explore the
             teachings of the Quran and embrace Islamic values in a meaningful way.
           </p>
-          <form method="POST">
-            <input type="hidden" name="enroll_now" value="1">
-            <button type="submit">ENROLL NOW</button>
-          </form>
+         
         </div>
       </div>
     </div>
@@ -174,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
           src="assets/images/child.jpg"
 
           alt="Child Learning Quran"
-          class="img-fluid" />
+          class="img-fluid" style="height: 450px; width: 100% ; object-fit: cover;"  />
       </div>
     </div>
   </div>
@@ -183,12 +180,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
 <!-- ABOUT SECTION -->
 <div class="container-fluid">
   <div class="row">
-    <div class="col-5 mt-5" data-aos="fade-left">
+    <div class="col-5" data-aos="fade-left">
       <div class="intro-img">
-        <img src="assets/images/child.jpg" alt="Child Learning Quran" class="img-fluid" />
+        <img src="assets/images/qurann.jpeg" alt="Child Learning Quran" class="img-fluid" style="height: 450px; width: 100% ; object-fit: cover;" />
       </div>
     </div>
-    <div class="col-7" data-aos="fade-right">
+    <div class="col-7 gx-3" data-aos="fade-right">
       <div class="intro-section">
         <div class="intro-text">
           <h1>
@@ -203,10 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
               With <strong>Khairul Quran Academy</strong> live classes, your child will build a strong foundation
               in Quran, Tajweed, and Islamic values — from the comfort of home.
             </p>
-            <!-- <form method="POST">
-  <input type="hidden" name="enroll_now" value="1">
-  <button type="submit">ENROLL NOW</button>
-</form> -->
+           
         </div>
       </div>
     </div>
@@ -292,73 +286,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enroll_now'])) {
 <!-- Course Details Modal -->
 <div id="courseModal" class="modal">
   <div class="modal-content">
+
     <span class="arbaz-button">&times;</span>
     <div class="modal-body">
-      <img id="courseImage" src="" alt="Course Image" />
-      <div class="course-info">
-        <h4 id="courseTitle"></h4>
-        <p id="courseDescription" style="color: black;"></p>
-        <!-- <h6>Teachers: <span id="teacherName"></span></h6> -->
-        <div class="flex-row mt-3">
+  <img id="courseImage" src="" alt="Course Image" />
+  <div class="course-info">
+    <h4 id="courseTitle"></h4>
+    <p id="courseDescription" style="color: black;"></p>
 
-    <div class="enroll-section">
-    <?php if (isLoggedIn() && isStudent()): ?>
-        <form method="POST" action="">
+    <!-- ✅ Add this line -->
+    <input type="hidden" id="modalCourseId" />
+
+    <div class="flex-row mt-3">
+      <div class="enroll-section">
+        <?php if (isLoggedIn() && isStudent()): ?>
+          <form method="POST" action="">
             <input type="hidden" name="enroll_now" value="1">
-            <input type="hidden" name="course_id" id="modalCourseId" value="">
+            <input type="hidden" name="course_id" value="" id="modalCourseIdFormInput">
             <button type="submit" class="enroll-btn">Enroll Now</button>
-        </form>
-    <?php elseif (!isLoggedIn()): ?>
-        <a href="/khairulquran/register.php" class="enroll-btn">Login to Enroll</a>
-    <?php else: ?>
-        <p class="text-danger">Only students can enroll</p>
-    <?php endif; ?>
-</div>
-        </div>
+          </form>
+        <?php elseif (!isLoggedIn()): ?>
+          <a href="/khairulquran/register.php" class="enroll-btn">Login to Enroll</a>
+        <?php else: ?>
+          <p class="text-danger">Only students can enroll</p>
+        <?php endif; ?>
       </div>
     </div>
   </div>
 </div>
-<script>
- document.addEventListener("DOMContentLoaded", () => {
+</div>
+</div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
     const courseCards = document.querySelectorAll(".course-card");
     const modal = document.getElementById("courseModal");
     const closeButton = modal.querySelector(".arbaz-button");
-    const courseIdInput = document.getElementById("modalCourseId");
+    const courseIdInput = document.getElementById("modalCourseId"); // Always present
+    const formCourseIdInput = document.getElementById("modalCourseIdFormInput"); // May be null
 
     courseCards.forEach((card) => {
-        card.addEventListener("click", () => {
-            const courseId = card.getAttribute("data-course-id");
-            const title = card.getAttribute("data-title");
-            const image = card.getAttribute("data-image");
-            const description = card.getAttribute("data-description");
+      card.addEventListener("click", () => {
+        const courseId = card.getAttribute("data-course-id");
+        const title = card.getAttribute("data-title");
+        const image = card.getAttribute("data-image");
+        const description = card.getAttribute("data-description");
 
-            // Set modal content
-            document.getElementById("courseTitle").innerText = title;
-            document.getElementById("courseImage").src = image;
-            document.getElementById("courseDescription").innerText = description;
-            courseIdInput.value = courseId; // Set the course ID in the form
+        // Set modal content
+        document.getElementById("courseTitle").innerText = title;
+        document.getElementById("courseImage").src = image;
+        document.getElementById("courseDescription").innerText = description;
 
-            // Show modal
-            modal.style.display = "block";
-        });
-    });
-
-    // Close modal
-    closeButton.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // Close on outside click
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
+        // Set course ID in both inputs (if available)
+        if (courseIdInput) {
+          courseIdInput.value = courseId;
         }
-    });
-});
+        if (formCourseIdInput) {
+          formCourseIdInput.value = courseId;
+        }
 
-    
+        // Show modal
+        modal.style.display = "block";
+      });
+    });
+
+    // Close modal on close button click
+    closeButton.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Close modal on outside click
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
 </script>
+
 
 <script>
   const slideLeft = document.querySelector('.left-slider');
